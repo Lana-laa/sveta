@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Signature Frame - About</title>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/smoothness/jquery-ui.css">
+  <style>
+    :root{
+      --bg:#212121;
+      --panel:#000000;
+      --accent:#213839;
+      --muted:#ffffff;
+      --text:#ffffff;
+      --gap:20px;
+      font-family: "Helvetica Neue", Arial, sans-serif;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      background:var(--bg);
+      color:var(--text);
+      line-height:1.45;
+    }
+   
+    /* Стиль Photographer */
+    .signature-style {
+      font-family: "Helvetica Neue", Arial, sans-serif;
+      font-weight: 300;
+      letter-spacing: 1px;
+      font-size: 24px;
+      color: #ffffff;
+      margin: 0;
+      text-transform: none;
+    }
+
+    /* Header */
+    .topbar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      max-width:1100px;
+      margin:0 auto;
+      padding:18px var(--gap);
+    }
+    nav ul {
+      list-style:none;
+      display:flex;
+      gap:14px;
+      margin:0;
+      padding:0;
+      align-items:center;
+    }
+    nav a{
+      color:var(--text);
+      text-decoration:none;
+      padding:8px 12px;
+      background:#212121;
+      border-radius:2px;
+      font-size:14px;
+    }
+    header {
+      background: #213839;
+      padding: 8px 0;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 23px;
+    }
+
+    /* Стиль для заголовков секций */
+    .section-title {
+      margin: 0 0 20px;
+      padding: 12px 16px;
+      background: var(--accent);
+      color: #ffffff;
+      font-weight: 300; 
+      letter-spacing: 1px; 
+      text-align: center;
+      width: 100%;
+      display: block;
+      font-size: 24px; 
+      font-family: "Helvetica Neue", Arial, sans-serif; 
+    }
+
+    /* Photographer section */
+    .container{
+      max-width:1100px;
+      margin:30px auto;
+      padding:0 var(--gap);
+    }
+
+    .photographer-section {
+      background: #000000;
+      padding: 30px;
+      margin-top: 40px;
+    }
+    
+    .photographer-content {
+      display: grid;
+      grid-template-columns: 300px 1fr;
+      gap: 40px;
+      align-items: start;
+    }
+    
+    .photographer-photo {
+      width: 100%;
+      height: 400px;
+      background: #000000;
+      border: 1px solid #000000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    
+    .photo-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .photographer-info {
+      padding: 10px 0;
+    }
+    
+    .photographer-description {
+      font-family: "Helvetica Neue", Arial, sans-serif;
+      font-weight: 300;
+      letter-spacing: 0.5px;
+      line-height: 1.6;
+      color: #ffffff;
+      margin-bottom: 25px;
+      font-size: 18px;
+    }
+    
+    .photographer-list {
+      list-style: none;
+      padding: 0;
+      margin: 25px 0;
+    }
+    
+    .photographer-list li {
+      font-family: "Helvetica Neue", Arial, sans-serif;
+      font-weight: 300;
+      letter-spacing: 0.5px;
+      color: #ffffff;
+      margin-bottom: 12px;
+      padding-left: 20px;
+      position: relative;
+      font-size: 16px;
+      line-height: 1.5;
+    }
+    
+    .photographer-list li:before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      color: #213839;
+      font-size: 20px;
+    }
+    
+    /* стиль для photographer-highlight */
+    .photographer-highlight {
+      background: #213839;
+      padding: 20px;
+      margin: 30px 0;
+      border-left: 3px solid #000000;
+      grid-column: 1 / -1; 
+      width: 100%;
+      text-align: center; 
+    }
+    
+    .photographer-highlight p {
+      font-family: "Helvetica Neue", Arial, sans-serif;
+      font-weight: 300;
+      letter-spacing: 0.5px;
+      color: #ffffff;
+      margin: 0;
+      font-size: 16px;
+      line-height: 1.6;
+      text-align: center; /* выравнивание текста по центру */
+    }
+    
+    .photographer-signature {
+      font-family: "Helvetica Neue", Arial, sans-serif;
+      font-weight: 300;
+      letter-spacing: 2px;
+      color: #8ba1a2;
+      text-align: right;
+      margin-top: 30px;
+      font-size: 18px;
+      border-top: 1px solid #000000;
+      padding-top: 15px;
+    }
+    
+    /* Стили для вкладок (Tabs) */
+    .tabs-section {
+      margin: 40px 0;
+      grid-column: 1 / -1;
+    }
+    
+    #tabs {
+      background: #000000;
+      border: none;
+    }
+    
+    #tabs .ui-tabs-nav {
+      background: #213839;
+      border: none;
+      border-radius: 0;
+      padding: 0;
+    }
+    
+    #tabs .ui-tabs-nav li {
+      background: #213839;
+      border: none;
+      border-radius: 0;
+      margin: 0;
+    }
+    
+    #tabs .ui-tabs-nav li a {
+      color: #ffffff;
+      font-family: "Helvetica Neue", Arial, sans-serif;
+      font-weight: 300;
+      padding: 10px 20px;
+    }
+    
+    #tabs .ui-tabs-nav li.ui-tabs-active {
+      background: #000000;
+    }
+    
+    #tabs .ui-tabs-nav li.ui-tabs-active a {
+      color: #8ba1a2;
+    }
+    
+    #tabs .ui-tabs-panel {
+      background: #000000;
+      color: #ffffff;
+      border: none;
+      padding: 20px;
+      font-family: "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.6;
+    }
+    
+    .tab-content h3 {
+      color: #8ba1a2;
+      margin-top: 0;
+      font-weight: 300;
+      letter-spacing: 1px;
+    }
+    
+    .tab-content ul {
+      padding-left: 20px;
+    }
+    
+    .tab-content li {
+      margin-bottom: 8px;
+    }
+    
+    /* Footer */
+    footer{
+      background:#000000;
+      border-top:6px solid #000000;
+      padding:26px 0 40px;
+      color:var(--muted);
+      text-align:center;
+      margin-top: 40px;
+    }
+    .contacts{
+      max-width:1100px;
+      margin:0 auto;
+      display:flex;
+      justify-content:center;
+      gap:30px;
+      align-items:center;
+      padding:8px;
+    }
+    .icons{
+      display:flex;
+      gap:18px;
+      margin-top:18px;
+      justify-content:center;
+    }
+    .social{
+      display:inline-flex;
+      width:44px;
+      height:44px;
+      align-items:center;
+      justify-content:center;
+      border:2px solid #ffffff;
+      border-radius:6px;
+      color:#ffffff;
+      text-decoration:none;
+      font-weight:700;
+    }
+
+    /* Адаптивность */
+    @media (max-width: 768px) {
+      .photographer-content {
+        grid-template-columns: 1fr;
+        gap: 30px;
+      }
+      
+      .photographer-photo {
+        height: 300px;
+        max-width: 400px;
+        margin: 0 auto;
+      }
+      
+      .photographer-highlight {
+        grid-column: 1;
+      }
+      
+      #tabs .ui-tabs-nav li {
+        float: none;
+        width: 100%;
+      }
+    }
+    
+    @media (max-width: 400px) {
+        .topbar {
+            flex-direction: column;
+            gap: 1rem;
+            padding: 14px;
+        }
+        .signature-style {
+            font-size: 20px;
+        }
+        
+        .contacts {
+          flex-direction: column;
+          gap: 15px;
+        }
+    }
+  </style>
+</head>
+<body>
+
+  <script>
+    $(document).ready(function () {
+      // Анимация для заголовка
+      $(".signature-style").hover(
+        function () {
+          $(this).animate({ letterSpacing: "4px" }, 300)
+                 .css("color", "#062324");
+        },
+        function () {
+          $(this).animate({ letterSpacing: "1px" }, 300)
+                 .css("color", "#ffffff");
+        }
+      );
+      
+      // Инициализация вкладок
+      $("#tabs").tabs();
+    });
+  </script>
+
+  <header>
+    <div class="topbar">
+      <div class="brand">
+        <h1 class="signature-style">About</h1>
+      </div>
+      <nav aria-label="Основная навигация">
+        <ul>
+          <li><a href="Signature Frame.html">Home</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="container photographer-section">
+      <div class="section-title">
+        <h2 class="signature-style" style="text-align: center; margin: 0; padding: 0; background: transparent; color: #ffffff; font-weight: 300;">Photographer</h2>
+      </div>
+      
+      <div class="photographer-content">
+        <div class="photographer-photo">
+          <div class="photo-placeholder">
+            <img src="scr1.png" alt="Портрет" class="photographer-photo" />
+          </div>
+        </div>
+        
+        <div class="photographer-info">
+          <p class="photographer-description">
+           Signature Frame - это фотостудия, специализирующаяся на художественной фотографии. Мы создаем уникальные снимки, сочетающие природную эстетику с тонкой работой со светом и цветом.</p>
+           <p class="photographer-description">Наша команда профессиональных фотографов имеет образование в сфере визуальных искусств и многолетний опыт работы в индустрии. Мы стремимся запечатлеть не просто моменты, а настоящие произведения искусства.</p>
+           <p class="photographer-description">Основные направления нашей работы включают художественный портрет, fine art фотографию, съемку в природных локациях и авторскую постановку кадра. Каждый проект для нас - это возможность создать что-то уникальное и запоминающееся.</p>
+            <p class="photographer-description">Мы верим, что настоящая фотография - это не просто технически правильный снимок, а эмоция, история и искусство, застывшее в кадре.</p>
+        </div>
+          
+        <div class="photographer-highlight">
+          <p>
+            Фотограф уделяет особое внимание естественности и эмоциональной глубине кадра. В работе ценит живые детали, атмосферу и искренность. Предпочитает снимать в природных локациях и работать с мягким дневным светом, чтобы создавать фотографии с художественным настроением и тонкой цветовой пластикой.
+          </p>
+        </div>
+        
+        <!-- Секция с вкладками -->
+        <div class="tabs-section">
+          <div id="tabs">
+            <ul>
+              <li><a href="#tabs-1">Услуги</a></li>
+              <li><a href="#tabs-2">Стили</a></li>
+              <li><a href="#tabs-3">Оборудование</a></li>
+            </ul>
+            <div id="tabs-1" class="tab-content">
+              <h3>Наши фотоуслуги</h3>
+              <p>Мы предлагаем полный спектр профессиональных фотоуслуг:</p>
+              <ul>
+                <li>Художественная портретная съемка</li>
+                <li>Fine art фотография</li>
+                <li>Съемка в природных локациях</li>
+                <li>Авторская постановка кадра</li>
+                <li>Ретушь и цветокоррекция премиум-класса</li>
+                <li>Создание фотокниг и альбомов</li>
+                <li>Консультации по визуальному стилю</li>
+              </ul>
+            </div>
+            <div id="tabs-2" class="tab-content">
+              <h3>Фирменные стили съемки</h3>
+              <p>Каждый наш фотограф работает в уникальном стиле:</p>
+              <ul>
+                <li><strong>Минимализм:</strong> Чистые композиции, акцент на деталях</li>
+                <li><strong>Fine Art:</strong> Художественная обработка, похожая на живопись</li>
+                <li><strong>Эмоциональный портрет:</strong> Съемка настоящих чувств и состояний</li>
+                <li><strong>Природная эстетика:</strong> Гармония человека и окружающего мира</li>
+                <li><strong>Черно-белая классика:</strong> Вневременная глубина и драматургия</li>
+              </ul>
+              <p>Мы подберем стиль, который лучше всего отразит вашу индивидуальность.</p>
+            </div>
+            <div id="tabs-3" class="tab-content">
+              <h3>Профессиональное оборудование</h3>
+              <p>Мы работаем только с лучшей техникой:</p>
+              <ul>
+                <li>Камеры: Canon EOS R5, Sony A7IV</li>
+                <li>Объективы: Carl Zeiss, Sigma Art серии</li>
+                <li>Студийный свет: Profoto, Broncolor</li>
+                <li>Редакционное ПО: Adobe Creative Cloud, Capture One</li>
+                <li>Мобильная студия для выездных съемок</li>
+                <li>Дроны для аэросъемки локаций</li>
+              </ul>
+              <p>Качество оборудования гарантирует безупречный технический результат.</p>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="contacts">
+      <div>Тел: +375 25 348 921</div>
+      <div>Telegram: @SignatureFrame</div>
+    </div>
+
+    <div class="icons" role="navigation" aria-label="Социальные сети">
+      <a class="social" href="https://www.instagram.com/" aria-label="Instagram">IG</a>
+      <a class="social" href="https://vk.com/" aria-label="VK">VK</a>
+      <a class="social" href="https://www.facebook.com/" aria-label="Facebook">FB</a>
+    </div>
+  </footer>
+
+</body>
+</html>

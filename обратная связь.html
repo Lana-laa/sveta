@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Обратная связь - Signature Frame</title>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+<style>
+  :root{
+    --bg:#212121;
+    --panel:#000000;
+    --accent:#213839;
+    --muted:#ffffff;
+    --text:#ffffff;
+    --gap:20px;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+  }
+  
+  *{box-sizing:border-box}
+  
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    line-height:1.45;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Header */
+  .topbar{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    max-width:1100px;
+    margin:0 auto;
+    padding:18px var(--gap);
+  }
+  
+  .brand{
+    display:flex;
+    align-items:center;
+    gap:14px;
+  }
+  
+  .brand h1{
+    margin:0;
+    font-weight:300;
+    letter-spacing:1px;
+    font-size:24px;
+    color:#ffffff;
+  }
+  
+  nav ul {
+    list-style:none;
+    display:flex;
+    gap:14px;
+    margin:0;
+    padding:0;
+    align-items:center;
+  }
+  
+  nav a{
+    color:var(--text);
+    text-decoration:none;
+    padding:8px 12px;
+    background:#212121;
+    border-radius:2px;
+    font-size:14px;
+  }
+  
+  header {
+    background: #213839;
+    padding: 8px 0;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 23px;
+  }
+
+  .signature-style {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-weight: 300;
+    letter-spacing: 1px;
+    font-size: 24px;
+    color: #ffffff;
+    margin: 0;
+    text-transform: none;
+  }
+
+  /* Основной контент с формой */
+  main {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+  }
+
+  /* Форма обратной связи */
+  .feedback-form {
+    background-color: #000000;
+    padding: 30px 40px;
+    border-radius: 10px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    width: 100%;
+    max-width: 500px;
+    border: 2px solid #213839;
+    margin-top: 20px;
+  }
+
+  .feedback-form h2 {
+    text-align: center;
+    margin-bottom: 25px;
+    color: #ffffff;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-weight: 300;
+    letter-spacing: 1px;
+    font-size: 28px;
+    background: var(--accent);
+    padding: 12px;
+    border-radius: 6px;
+  }
+
+  .feedback-form label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 300;
+    color: #ffffff;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 16px;
+  }
+
+  .form-group {
+    margin-bottom: 20px;
+  }
+
+  .feedback-form input,
+  .feedback-form textarea,
+  .feedback-form select {
+    width: 100%;
+    padding: 12px;
+    border-radius: 5px;
+    border: 1px solid #213839;
+    box-sizing: border-box;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 16px;
+    background: #212121;
+    color: #ffffff;
+    transition: all 0.3s ease;
+  }
+
+  .feedback-form input:focus,
+  .feedback-form textarea:focus,
+  .feedback-form select:focus {
+    outline: none;
+    border-color: #2a4a4b;
+    box-shadow: 0 0 0 2px rgba(42, 74, 75, 0.3);
+  }
+
+  .feedback-form textarea {
+    resize: vertical;
+    min-height: 120px;
+  }
+
+  /* Рейтинг звездочками */
+  .rating-container {
+    margin: 10px 0;
+  }
+
+  .rating-label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 300;
+    color: #ffffff;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 16px;
+  }
+
+  .rating-stars {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 5px;
+  }
+
+  .rating-star {
+    font-size: 32px;
+    color: #555;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    line-height: 1;
+  }
+
+  .rating-star.active {
+    color: #FFD700;
+    text-shadow: 0 0 8px rgba(255, 215, 0, 0.5);
+  }
+
+  .rating-star:hover {
+    color: #FFD700;
+    transform: scale(1.1);
+  }
+
+  .rating-value {
+    font-size: 14px;
+    color: #d0d0d0;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    margin-top: 5px;
+    text-align: center;
+  }
+
+  .rating-hint {
+    font-size: 12px;
+    color: #888;
+    font-style: italic;
+    margin-top: 5px;
+  }
+
+  /* Сообщения об ошибке и успехе */
+  .error-message {
+    color: #ff4444;
+    font-size: 14px;
+    margin-top: 5px;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    display: none;
+  }
+
+  .success-message {
+    text-align: center;
+    padding: 15px;
+    background: rgba(33, 56, 57, 0.3);
+    border-radius: 6px;
+    margin-top: 20px;
+    display: none;
+  }
+
+  .success-message p {
+    color: #4CAF50;
+    font-size: 16px;
+    margin: 0;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+  }
+
+  /* Стили для полей с ошибкой */
+  .error {
+    border-color: #000000 !important;
+    background-color: rgba(255, 68, 68, 0.1) !important;
+  }
+
+  /* Кнопки */
+  .button-container {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+  }
+
+  .feedback-form button {
+    flex: 1;
+    padding: 14px;
+    border: none;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-weight: 300;
+    letter-spacing: 1px;
+  }
+
+  .submit-btn {
+    background-color: #213839;
+    color: white;
+  }
+
+  .submit-btn:hover {
+    background-color: #2a4a4b;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  }
+
+  .reset-btn {
+    background-color: #212121;
+    color: white;
+    border: 1px solid #213839;
+  }
+
+  .reset-btn:hover {
+    background-color: #2a2a2a;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  }
+
+  /* Footer */
+  footer{
+    background:#000000;
+    border-top:6px solid #000000;
+    padding:26px 0 40px;
+    color:var(--muted);
+    text-align:center;
+    margin-top: auto;
+  }
+  
+  .contacts{
+    max-width:1100px;
+    margin:0 auto;
+    display:flex;
+    justify-content:center;
+    gap:30px;
+    align-items:center;
+    padding:8px;
+  }
+  
+  .icons{
+    display:flex;
+    gap:18px;
+    margin-top:18px;
+    justify-content:center;
+  }
+  
+  .social{
+    display:inline-flex;
+    width:44px;
+    height:44px;
+    align-items:center;
+    justify-content:center;
+    border:2px solid #ffffff;
+    border-radius:6px;
+    color:#ffffff;
+    text-decoration:none;
+    font-weight:700;
+    transition: all 0.3s ease;
+  }
+  
+  .social:hover {
+    background: #213839;
+    transform: translateY(-2px);
+  }
+
+  /* Адаптивность */
+  @media (max-width: 768px) {
+    .feedback-form {
+      padding: 25px 30px;
+      max-width: 400px;
+    }
+    
+    .rating-star {
+      font-size: 28px;
+    }
+    
+    .button-container {
+      flex-direction: column;
+      gap: 10px;
+    }
+  }
+
+  @media (max-width: 520px) {
+    .topbar{ 
+      padding:14px; 
+      flex-direction: column;
+      gap: 1rem;
+    }
+    
+    .brand h1,
+    .signature-style {
+      font-size: 20px;
+    }
+    
+    nav ul {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    
+    .feedback-form {
+      padding: 20px;
+      margin: 15px;
+    }
+    
+    .feedback-form h2 {
+      font-size: 24px;
+    }
+    
+    .rating-star {
+      font-size: 24px;
+    }
+    
+    .contacts {
+      flex-direction: column;
+      gap: 15px;
+    }
+  }
+  
+  @media (max-width: 400px) {
+    .feedback-form {
+      padding: 15px;
+    }
+    
+    .feedback-form h2 {
+      font-size: 22px;
+      padding: 10px;
+    }
+    
+    .rating-star {
+      font-size: 22px;
+    }
+    
+    .rating-stars {
+      gap: 5px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<script>
+$(document).ready(function () {
+  // Анимация для заголовка
+  $(".signature-style").hover(
+    function () {
+      $(this).animate({ letterSpacing: "4px" }, 300)
+             .css("color", "#062324");
+    },
+    function () {
+      $(this).animate({ letterSpacing: "1px" }, 300)
+             .css("color", "#ffffff");
+    }
+  );
+
+  // Валидация формы
+  $("#feedbackForm").submit(function(e) {
+    e.preventDefault();
+    
+    let isValid = true;
+    let rating = 0;
+    
+    // Валидация имени
+    const name = $("#name").val().trim();
+    if (name.length < 2) {
+      showError("name", "Имя должно содержать минимум 2 символа");
+      isValid = false;
+    } else {
+      hideError("name");
+    }
+    
+    // Валидация email
+    const email = $("#email").val().trim();
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      showError("email", "Введите корректный email адрес");
+      isValid = false;
+    } else {
+      hideError("email");
+    }
+    
+    // Валидация типа услуги
+    const serviceType = $("#serviceType").val();
+    if (!serviceType) {
+      showError("serviceType", "Выберите тип услуги");
+      isValid = false;
+    } else {
+      hideError("serviceType");
+    }
+    
+    // Валидация рейтинга
+    $(".rating-star").each(function() {
+      if ($(this).hasClass("active")) {
+        rating = $(this).data("value");
+      }
+    });
+    if (rating === 0) {
+      showError("rating", "Поставьте оценку, выбрав количество звезд");
+      isValid = false;
+    } else {
+      hideError("rating");
+    }
+    
+    // Валидация сообщения
+    const message = $("#message").val().trim();
+    if (message.length < 10) {
+      showError("message", "Сообщение должно содержать минимум 10 символов");
+      isValid = false;
+    } else {
+      hideError("message");
+    }
+    
+    if (isValid) {
+      // Если форма валидна, показываем сообщение об успехе
+      $("#successMessage").fadeIn(500);
+      
+      // Сбрасываем форму через 3 секунды
+      setTimeout(function() {
+        $("#successMessage").fadeOut(500);
+        $("#feedbackForm")[0].reset();
+        $(".rating-star").removeClass("active");
+        $("#ratingValue").text("0 из 5");
+        rating = 0;
+      }, 3000);
+    }
+    
+    return false;
+  });
+  
+  // Функция для показа ошибки с анимацией
+  function showError(fieldId, message) {
+    const $field = $("#" + fieldId);
+    const $error = $("#" + fieldId + "Error");
+    
+    // Добавляем класс ошибки
+    $field.addClass("error");
+    
+    // Показываем сообщение об ошибке
+    $error.text(message).fadeIn(300);
+    
+    // Применяем эффект "shake" из jQuery UI
+    $field.effect("shake", {
+      distance: 8,      // расстояние тряски
+      times: 3,         // количество колебаний
+      duration: 400     // длительность анимации
+    }, function() {
+      // Фокус на поле с ошибкой после завершения анимации
+      $field.focus();
+    });
+  }
+  
+  // Функция для скрытия ошибки
+  function hideError(fieldId) {
+    const $field = $("#" + fieldId);
+    const $error = $("#" + fieldId + "Error");
+    
+    $field.removeClass("error");
+    $error.fadeOut(300);
+  }
+  
+  // Обработчики для рейтинга звездами
+  $(".rating-star").click(function() {
+    const value = $(this).data("value");
+    
+    // Устанавливаем активный класс для всех звезд до выбранной
+    $(".rating-star").removeClass("active");
+    $(this).prevAll().addBack().addClass("active");
+    
+    // Обновляем отображение значения рейтинга
+    $("#ratingValue").text(value + " из 5");
+    
+    // Скрываем ошибку рейтинга, если она была
+    hideError("rating");
+  });
+  
+  // Обработчик наведения на звезды
+  $(".rating-star").hover(
+    function() {
+      const value = $(this).data("value");
+      // Подсвечиваем звезды при наведении
+      $(".rating-star").removeClass("hover");
+      $(this).prevAll().addBack().addClass("hover");
+      $("#ratingValue").text(value + " из 5 (предпросмотр)");
+    },
+    function() {
+      // Возвращаем фактический выбор при уходе мыши
+      $(".rating-star").removeClass("hover");
+      const activeValue = $(".rating-star.active").last().data("value") || 0;
+      $("#ratingValue").text(activeValue + " из 5");
+    }
+  );
+  
+  // Скрытие ошибок при вводе
+  $("input, textarea, select").on("input change", function() {
+    const fieldId = $(this).attr("id");
+    hideError(fieldId);
+  });
+  
+  // Обработчик кнопки сброса
+  $(".reset-btn").click(function() {
+    // Сбрасываем рейтинг
+    $(".rating-star").removeClass("active");
+    $("#ratingValue").text("0 из 5");
+    
+    // Скрываем все ошибки
+    $(".error-message").hide();
+    $(".success-message").hide();
+    $(".error").removeClass("error");
+  });
+});
+</script>
+
+<header>
+  <div class="topbar">
+    <div class="brand">
+      <h1 class="signature-style">Обратная связь</h1>
+    </div>
+    <nav aria-label="Основная навигация">
+      <ul>
+        <li><a href="Signature Frame.html">Home</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="feedback-form">
+    <h2>Обратная связь</h2>
+    <form id="feedbackForm" method="post">
+      
+      <div class="form-group">
+        <label for="name">Ваше имя:</label>
+        <input type="text" id="name" name="name" placeholder="Введите ваше имя" required>
+        <div id="nameError" class="error-message"></div>
+      </div>
+      
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" placeholder="Введите ваш email" required>
+        <div id="emailError" class="error-message"></div>
+      </div>
+      
+      <div class="form-group">
+        <label for="serviceType">Тип услуги:</label>
+        <select id="serviceType" name="serviceType" required>
+          <option value="">Выберите тип услуги</option>
+          <option value="studio1">Студия 1</option>
+          <option value="studio2">Студия 2</option>
+          <option value="studio3">Студия 3</option>
+          <option value="nature">Фотосессия на природе</option>
+          <option value="family">Семейная фотосессия</option>
+          <option value="portrait">Портретная съемка</option>
+          <option value="other">Другое</option>
+        </select>
+        <div id="serviceTypeError" class="error-message"></div>
+      </div>
+      
+      <div class="form-group">
+        <div class="rating-label">Оцените наш сервис:</div>
+        <div class="rating-stars">
+          <span class="rating-star" data-value="1">☆</span>
+          <span class="rating-star" data-value="2">☆</span>
+          <span class="rating-star" data-value="3">☆</span>
+          <span class="rating-star" data-value="4">☆</span>
+          <span class="rating-star" data-value="5">☆</span>
+        </div>
+        <div id="ratingValue" class="rating-value">0 из 5</div>
+        <div id="ratingError" class="error-message"></div>
+        <div class="rating-hint">Нажмите на звезду, чтобы поставить оценку</div>
+      </div>
+      
+      <div class="form-group">
+        <label for="message">Сообщение:</label>
+        <textarea id="message" name="message" rows="5" placeholder="Ваш комментарий или отзыв" required></textarea>
+        <div id="messageError" class="error-message"></div>
+      </div>
+      
+      <div class="button-container">
+        <button type="submit" class="submit-btn">Отправить</button>
+        <button type="reset" class="reset-btn">Сброс</button>
+      </div>
+      
+      <div id="successMessage" class="success-message">
+        <p>Спасибо! Ваш отзыв успешно отправлен.</p>
+      </div>
+    </form>
+  </div>
+</main>
+
+<footer>
+  <div class="contacts">
+    <div>Тел: +375 25 348 921</div>
+    <div>Telegram: @SignatureFrame</div>
+  </div>
+
+  <div class="icons" role="navigation" aria-label="Социальные сети">
+    <a class="social" href="https://www.instagram.com/" aria-label="Instagram">IG</a>
+    <a class="social" href="https://vk.com/" aria-label="VK">VK</a>
+    <a class="social" href="https://www.facebook.com/" aria-label="Facebook">FB</a>
+  </div>
+</footer>
+
+</body>
+</html>

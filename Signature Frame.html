@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Signature Frame</title>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+  <style>
+    :root{
+      --bg:#212121;
+      --panel:#000000;
+      --accent:#213839;
+      --muted:#ffffff;
+      --text:#ffffff;
+      --gap:20px;
+      font-family: "Helvetica Neue", Arial, sans-serif;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      background:var(--bg);
+      color:var(--text);
+      line-height:1.45;
+    }
+
+    /* Header */
+    .topbar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      max-width:1100px;
+      margin:0 auto;
+      padding:18px var(--gap);
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:14px;
+    }
+    .brand h1{
+      margin:0;
+      font-weight:300;
+      letter-spacing:1px;
+      font-size:24px;
+      color:#ffffff;
+    }
+    nav ul {
+      list-style:none;
+      display:flex;
+      gap:14px;
+      margin:0;
+      padding:0;
+      align-items:center;
+    }
+    nav a, nav button {
+      color:var(--text);
+      text-decoration:none;
+      padding:8px 12px;
+      background:#212121;
+      border-radius:2px;
+      font-size:14px;
+      font-family: "Helvetica Neue", Arial, sans-serif;
+      border: none;
+      cursor: pointer;
+    }
+
+.header-wrapper {
+  background: #000000;
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  padding: 0;
+}
+
+header {
+  background: #213839;
+  padding: 8px 0;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 23px;
+}
+
+    /* Стиль Photographer */
+    .signature-style {
+      font-family: "Helvetica Neue", Arial, sans-serif;
+      font-weight: 300;
+      letter-spacing: 1px;
+      font-size: 24px;
+      color: #ffffff;
+      margin: 0;
+      text-transform: none;
+    }
+
+    /* Main content area */
+    .container{
+      max-width:1100px;
+      margin:30px auto;
+      padding:0 var(--gap);
+    }
+    .intro{
+      display:grid;
+      grid-template-columns:1fr 340px;
+      gap:20px;
+      align-items:start;
+      background:#000000;
+      padding:16px;
+    }
+    .intro h2{
+      margin:0 0 10px 0;
+      color:var(--accent);
+      font-weight:600;
+      letter-spacing:1px;
+    }
+    .intro p{
+      color:var(--muted);
+      margin:0 0 10px 0;
+      font-size:15px;
+    }
+    .profile-img{
+      width:100%;
+      height:100%;
+      max-width:340px;
+      background:#212121;
+      display:block;
+      border:6px solid #000000;
+      object-fit:cover;
+    }
+
+    /* Portfolio Section */
+    .portfolio-section {
+      background: #000000;
+      padding: 20px 0 40px;
+      margin: 30px 0;
+      position: relative;
+    }
+    
+    .portfolio-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 var(--gap);
+    }
+    
+    /* Обновленный стиль для заголовков секций */
+    .section-title {
+      margin: 0 0 20px;
+      padding: 12px 16px;
+      background: var(--accent);
+      color: #ffffff;
+      font-weight: 300; 
+      letter-spacing: 1px; 
+      text-align: center;
+      width: 100%;
+      display: block;
+      font-size: 24px; 
+      font-family: "Helvetica Neue", Arial, sans-serif; 
+    }
+    
+    .gallery{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:12px;
+      margin-top: 20px;
+    }
+    
+    .thumb{
+      background:#000000;
+      overflow:hidden;
+      border:4px solid #0a0a0a;
+      display:block;
+    }
+    .thumb img{
+      width:100%;
+      height:100%;
+      display:block;
+      object-fit:cover;
+      transition:transform .3s ease;
+    }
+
+    .thumb:hover img{ 
+      transform:scale(1.03); 
+    }
+    
+
+    /* Footer */
+    footer{
+      background:#000000;
+      border-top:6px solid #000000;
+      padding:26px 0 40px;
+      color:var(--muted);
+      text-align:center;
+    }
+    .contacts{
+      max-width:1100px;
+      margin:0 auto;
+      display:flex;
+      justify-content:center;
+      gap:30px;
+      align-items:center;
+      padding:8px;
+    }
+    .icons{
+      display:flex;
+      gap:18px;
+      margin-top:18px;
+      justify-content:center;
+    }
+    .social{
+      display:inline-flex;
+      width:44px;
+      height:44px;
+      align-items:center;
+      justify-content:center;
+      border:2px solid #ffffff;
+      border-radius:6px;
+      color:#ffffff;
+      text-decoration:none;
+      font-weight:700;
+    }
+    
+
+    /* Responsive */
+    @media (max-width:900px){
+      .intro{ grid-template-columns:1fr; }
+      .gallery{ grid-template-columns:repeat(2,1fr); }
+      .profile-img{ max-width:100%; height:300px; object-fit:cover; }
+    }
+    @media (max-width:520px){
+  .gallery{ grid-template-columns:repeat(1,1fr); }
+  nav ul{ display:flex; }
+  .topbar{ 
+    padding:14px; 
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .brand h1,
+  .signature-style,
+  .section-title {
+    font-size: 20px;
+  }
+    }
+
+    /* Стили для jQuery UI диалога */
+    .ui-widget-overlay {
+      background: rgba(0, 0, 0, 0.7);
+    }
+    .ui-dialog {
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      border: 1px solid var(--accent);
+      font-family: "Helvetica Neue", Arial, sans-serif !important;
+    }
+    .ui-dialog .ui-dialog-content {
+      padding: 0;
+      background: white;
+      color: #333;
+    }
+    .ui-dialog-titlebar {
+      background: var(--accent) !important;
+      color: white !important;
+      font-family: "Helvetica Neue", Arial, sans-serif;
+      font-weight: 300;
+      letter-spacing: 1px;
+    }
+    .ui-dialog-titlebar-close {
+      color: white !important;
+    }
+    .ui-button {
+      background: var(--accent) !important;
+      border-color: var(--accent) !important;
+      color: white !important;
+    }
+    .ui-button:hover {
+      background: #062324 !important;
+    }
+  </style>
+</head>
+<body>
+
+  <script>
+    $(document).ready(function () {
+      
+      $(".signature-style").hover(
+        function () {
+          $(this).animate({ letterSpacing: "4px" }, 300)
+                 .css("color", "#062324");
+        },
+        function () {
+          $(this).animate({ letterSpacing: "1px" }, 300)
+                 .css("color", "#ffffff");
+        }
+      );
+
+      // Инициализация диалогового окна
+      $("#my-dialog").dialog({
+        autoOpen: false,
+        modal: true,
+        width: 500,
+        height: "auto",
+        resizable: false,
+        draggable: true
+      });
+
+      // Простой обработчик клика по кнопке
+      $("#open-dialog-btn").click(function() {
+        $("#my-dialog").dialog("open");
+      });
+    });
+  </script>
+
+  <div class="header-wrapper">
+    <header>
+      <div class="topbar">
+        <div class="brand">
+          <h1 class="signature-style">Signature Frame</h1>
+        </div>
+        <nav aria-label="Главное меню">
+          <ul>
+            <li><a href="Price list.html">Price list</a></li>
+            <li><a href="About.html">About</a></li>
+            <li><a href="Portfolio.html">Portfolio</a></li>
+            <li><a href="Studio.html">Studio</a></li>
+            <li><button id="open-dialog-btn">Information</button></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+  </div>
+
+  <main>
+    <section class="container">
+      <div class="intro" id="about">
+        <div>
+          <div class="section-title">
+            <h2 class="signature-style" style="text-align: center; margin: 0; padding: 0; background: transparent; color: #ffffff; font-weight: 300;">Photographer</h2>
+          </div> 
+          <p style="font-size:25px;">Фотограф имеет профессиональное образование в сфере визуальных искусств и фотографии.</p>
+          <p style="font-size:25px;">Основное направление – художественный портрет, съёмка в природных локациях и авторская постановка кадра. </p>
+          <p style="font-size:25px;">Фотограф создаёт снимки в стиле fine art, комбинируя природную среду, выразительный свет и тонкую работу с цветом.</p>
+        </div>
+
+        <img src="scr1.png" alt="Портрет" class="profile-img" />
+      </div>
+    </section>
+    
+    <section class="portfolio-section">
+      <div class="portfolio-container">
+        <div class="section-title">
+          <h2 class="signature-style" style="text-align: center; margin: 0; padding: 0; background: transparent; color: #ffffff; font-weight: 300;">Portfolio</h2>
+        </div>
+        
+        <div class="gallery" aria-label="Галерея работ">
+          <a class="thumb" href="#">
+            <img src="scr7.png" alt="Портфолио 1">
+          </a>
+          <a class="thumb" href="#">
+            <img src="scr2.png" alt="Портфолио 2">
+          </a>
+          <a class="thumb" href="#">
+            <img src="scr5.png" alt="Портфолио 3">
+          </a>
+          <a class="thumb" href="#">
+            <img src="scr6.png" alt="Портфолио 4">
+          </a>
+          <a class="thumb" href="#">
+            <img src="scr4.png" alt="Портфолио 5">
+          </a>
+          <a class="thumb" href="#">
+            <img src="scr3.png" alt="Портфолио 6">
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="contacts">
+      <div>Тел: +375 25 348 921</div>
+      <div>Telegram: @SignatureFrame</div>
+    </div>
+
+    <div class="icons" role="navigation" aria-label="Социальные сети">
+      <a class="social" href="https://www.instagram.com/" aria-label="Instagram">IG</a>
+      <a class="social" href="https://vk.com/" aria-label="VK">VK</a>
+      <a class="social" href="https://www.facebook.com/" aria-label="Facebook">FB</a>
+    </div>
+  </footer>
+
+  <!-- Модальное окно -->
+  <div id="my-dialog" title="Добро пожаловать в Signature Frame" style="display: none;">
+    <div style="padding: 10px;">
+      <h3 style="color: var(--accent); margin-top: 0;">О студии</h3>
+      <p><strong>Signature Frame</strong> — это фотостудия, специализирующаяся на художественной фотографии и создании уникальных визуальных образов.</p>
+      
+      <h4 style="color: var(--accent);">Наши особенности:</h4>
+      <ul>
+        <li> Fine art фотография</li>
+        <li> Авторская обработка</li>
+        <li> Съёмка на природных локациях</li>
+        <li> Профессиональное студийное оборудование</li>
+        <li> Индивидуальный подход к каждому клиенту</li>
+      </ul>
+      
+      <p>Мы создаём не просто фотографии, а произведения искусства, которые будут радовать вас долгие годы.</p>
+      
+      <div style="text-align: center; margin-top: 20px; padding: 10px; background: #f5f5f5; border-radius: 4px;">
+        <small>Контакты: +375 25 348 921 | Telegram: @SignatureFrame</small>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

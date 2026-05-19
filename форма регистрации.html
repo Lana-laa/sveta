@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Форма входа</title>
+<style>
+  :root{
+    --orange:#7fc1ff;
+    --light:#f6f8f0;
+    --green:#cbdcb0;
+    --border:#d6dfc9;
+    --muted:#bfbfbf;
+    --link:#b56cff;
+    --shadow: 0 6px 0 rgba(160,180,140,0.25);
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  body{
+    background: #f2f6ee;
+    margin: 40px;
+    display:flex;
+    justify-content:center;
+  }
+
+  .login-card{
+    width: 320px;
+    background: linear-gradient(#f7f9f3, #eef2e6);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+  }
+
+  .login-header{
+    background: var(--orange);
+    padding: 14px 16px;
+    text-align:center;
+  }
+  .login-header h2{
+    margin:0;
+    font-size:18px;
+    color: #fff;
+    letter-spacing: 1px;
+  }
+
+  .login-body{
+    padding: 14px 16px 18px;
+    color: #6b6b4f;
+  }
+
+  .field-row{
+    display:flex;
+    align-items:center;
+    margin-bottom:10px;
+  }
+  .field-row label{
+    width:70px;
+    font-weight:600;
+    font-size:14px;
+    color:#7d7d62;
+  }
+  .field-row input[type="text"],
+  .field-row input[type="password"]{
+    flex:1;
+    padding:6px 8px;
+    border:2px solid #dfe3d0;
+    border-radius:2px;
+    background:#fff;
+    outline:none;
+    font-size:14px;
+    box-sizing:border-box;
+  }
+  .field-row input:focus{
+    border-color: #c3d29b;
+    box-shadow: 0 0 0 2px rgba(195,210,155,0.12);
+  }
+
+  .remember-row{
+    display:flex;
+    align-items:center;
+    margin:10px 0;
+  }
+  .remember-row input[type="checkbox"]{
+    width:16px;
+    height:16px;
+    margin-right:8px;
+  }
+  .remember-row label{
+    font-size:13px;
+    color:#5b5b45;
+  }
+
+  .actions{
+    display:flex;
+    align-items:center;
+  }
+
+  .btn{
+    margin-left:auto;
+    padding:8px 14px;
+    background:#cfcfcf;
+    color:#fff;
+    border: none;
+    border-radius:3px;
+    font-weight:600;
+    cursor: not-allowed;
+  }
+  .btn.enabled{
+    background: var(--orange);
+    cursor:pointer;
+    box-shadow: 0 2px 0 rgba(0,0,0,0.08);
+  }
+  .links{
+    margin-top:12px;
+    border-top:1px solid var(--border);
+    padding-top:10px;
+    color:#e36b00;
+    font-size:14px;
+  }
+  .links a{
+    color:var(--link);
+    text-decoration:none;
+    margin-right:10px;
+  }
+  .links a:hover{
+    text-decoration:underline;
+  }
+
+  /* мелкие визуальные корректировки, чтобы карточка выглядела как на образце */
+  .login-card:after{
+    content:"";
+    display:block;
+    height:6px;
+    background:transparent;
+    border-top: 6px solid rgba(0,0,0,0.02);
+    margin-top:4px;
+  }
+
+  /* адаптивно */
+  @media (max-width:360px){
+    .login-card{ width: 94%; }
+    .field-row label{ width:60px; }
+  }
+</style>
+</head>
+<body>
+
+  <div class="login-card" role="region" aria-label="Форма входа">
+    <div class="login-header">
+      <h2>Форма входа</h2>
+    </div>
+
+    <div class="login-body">
+      <form id="loginForm" action="#" method="post" novalidate>
+        <div class="field-row">
+          <label for="username">Логин:</label>
+          <input id="username" name="username" type="text" autocomplete="username" required>
+        </div>
+
+        <div class="field-row">
+          <label for="password">Пароль:</label>
+          <input id="password" name="password" type="password" autocomplete="current-password" required>
+        </div>
+
+        <div class="remember-row">
+          <input id="remember" type="checkbox" name="remember">
+          <label for="remember">запомнить</label>
+        </div>
+
+        <div class="actions">
+    <button id="submitBtn" class="btn" type="submit" disabled>Вход</button>
+        </div>
+
+        <div class="links">
+          <a href="#" id="forgot">Забыл пароль</a>
+          <a href="#" id="reg">Регистрация</a>
+        </div>
+      </form>
+    </div>
+  </div>
+
+<script>
+  // Простейшая логика: включать кнопку, когда оба поля не пустые
+  (function(){
+    var username = document.getElementById('username');
+    var password = document.getElementById('password');
+    var submitBtn = document.getElementById('submitBtn');
+
+    function check(){
+      if (username.value.trim() !== "" & password.value.trim() !== ""){
+        submitBtn.disabled = false;
+        submitBtn.classList.add('enabled');
+      } else {
+        submitBtn.disabled = true;
+        submitBtn.classList.remove('enabled');
+      }
+    }
+
+    username.addEventListener('input', check);
+    password.addEventListener('input', check);
+
+    // не отправлять форму при демонстрации
+    document.getElementById('loginForm').addEventListener('submit', function(e){
+      e.preventDefault();
+      alert('Демонстрационная отправка формы\nЛогин: ' + username.value);
+    });
+  })();
+
+
+
+(function(){
+  var username = document.getElementById('username');
+  var password = document.getElementById('password');
+  var submitBtn = document.getElementById('submitBtn');
+
+  // Функция для включения/отключения кнопки
+  function check(){
+    if (username.value.trim() !== "" && password.value.trim() !== ""){
+      submitBtn.disabled = false;
+      submitBtn.classList.add('enabled');
+    } else {
+      submitBtn.disabled = true;
+      submitBtn.classList.remove('enabled');
+    }
+  }
+
+  username.addEventListener('input', check);
+  password.addEventListener('input', check);
+
+  // Обработчик события нажатия кнопки
+  document.getElementById('loginForm').addEventListener('submit', function(e){
+    e.preventDefault(); // предотвращаем реальную отправку формы
+    alert('Регистрация успешна!\nВаш логин: ' + username.value);
+  });
+})();
+
+
+
+</script>
+
+</body>
+</html>

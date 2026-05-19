@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Signature Frame - Price List</title>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <style>
+    :root{
+      --bg:#212121;
+      --panel:#000000;
+      --accent:#213839;
+      --muted:#ffffff;
+      --text:#ffffff;
+      --gap:20px;
+      font-family: "Helvetica Neue", Arial, sans-serif;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      background:var(--bg);
+      color:var(--text);
+      line-height:1.45;
+    }
+   
+    /* Стили для Header */
+    .topbar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      max-width:1100px;
+      margin:0 auto;
+      padding:18px var(--gap);
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:14px;
+    }
+    .brand h1{
+      margin:0;
+      font-weight:300;
+      letter-spacing:1px;
+      font-size:24px;
+      color:#ffffff;
+    }
+    nav ul {
+      list-style:none;
+      display:flex;
+      gap:14px;
+      margin:0;
+      padding:0;
+      align-items:center;
+    }
+    nav a{
+      color:var(--text);
+      text-decoration:none;
+      padding:8px 12px;
+      background:#212121;
+      border-radius:2px;
+      font-size:14px;
+    }
+    header {
+      background: #213839;
+      padding: 8px 40px;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 23px;
+    }
+
+    .signature-style {
+      font-family: "Helvetica Neue", Arial, sans-serif;
+      font-weight: 300;
+      letter-spacing: 1px;
+      font-size: 24px;
+      color: #ffffff;
+      margin: 0;
+      text-transform: none;
+    }
+
+    /* Черный фон для таблицы цен */
+    .price-section {
+      background: #000000;
+      padding: 10px 0 10px;
+      margin: 30px 0;
+      position: relative;
+    }
+    
+    .price-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 var(--gap);
+    }
+    
+    /* Стиль для заголовков секций */
+    .section-title {
+      margin: 0 0 20px;
+      padding: 12px 16px;
+      background: var(--accent);
+      color: #ffffff;
+      font-weight: 300; 
+      letter-spacing: 1px; 
+      text-align: center;
+      width: 100%;
+      display: block;
+      font-size: 24px; 
+      font-family: "Helvetica Neue", Arial, sans-serif; 
+    }
+
+    /* Стили для таблицы цен */
+    .price-table {
+      width: 100%;
+      border-collapse: collapse; 
+      margin: 2rem auto;
+      max-width: 600px; 
+    }
+    .price-table th,
+    .price-table td {
+      background-color: #213839; 
+      color: #fff;
+      padding: 1rem;
+      text-align: center;
+      font-size: 1.1rem;
+      border: 1px solid #1a1a1a; 
+      border-radius: 5px; 
+    }
+    .price-table th {
+      font-weight: bold;
+      background-color: #213839; 
+    }
+    
+    .price-table tr {
+        margin-bottom: 10px; 
+        display: block; 
+    }
+    .price-table td, .price-table th {
+        display: inline-block; 
+        width: calc(33.33% - 22px); 
+        margin: 5px; 
+        box-sizing: border-box; 
+    }
+    
+    .price-table tr:first-child th {
+        margin-bottom: 5px;
+    }
+
+    /* Стили для Footer */
+    footer{
+      background:#000000;
+      border-top:6px solid #000000;
+      padding:26px 0 40px;
+      color:var(--muted);
+      text-align:center;
+    }
+    .contacts{
+      max-width:1100px;
+      margin:0 auto;
+      display:flex;
+      justify-content:center;
+      gap:30px;
+      align-items:center;
+      padding:8px;
+    }
+    .icons{
+      display:flex;
+      gap:18px;
+      margin-top:18px;
+      justify-content:center;
+    }
+    .social{
+      display:inline-flex;
+      width:44px;
+      height:44px;
+      align-items:center;
+      justify-content:center;
+      border:2px solid #ffffff;
+      border-radius:6px;
+      color:#ffffff;
+      text-decoration:none;
+      font-weight:700;
+    }
+
+    /* Адаптивность для таблицы на маленьких экранах */
+    @media (max-width: 600px) {
+        .price-table td, .price-table th {
+            width: calc(100% - 22px); /* Ячейки занимают всю ширину */
+            display: block; 
+            margin: 5px auto; 
+        }
+        
+        .main-content {
+          padding: 0 15px;
+        }
+    }
+    
+    /* Адаптивность для хедера на маленьких экранах */
+    @media (max-width: 520px) {
+        .topbar {
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .brand h1,
+        .signature-style {
+            font-size: 20px;
+        }
+        nav ul {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+        }
+        .section-title {
+          font-size: 20px;
+        }
+    }
+    
+    @media (max-width: 400px) {
+        .contacts {
+          flex-direction: column;
+          gap: 15px;
+        }
+    }
+  </style>
+</head>
+<body>
+
+<script>
+$(document).ready(function () {
+  $(".signature-style").hover(
+    function () {
+      $(this).animate({ letterSpacing: "4px" }, 300)
+             .css("color", "#062324");
+    },
+    function () {
+      $(this).animate({ letterSpacing: "1px" }, 300)
+             .css("color", "#ffffff");
+    }
+  );
+});
+</script>
+
+  <header>
+    <div class="topbar">
+      <div class="brand">
+        <h1 class="signature-style">Price List</h1>
+      </div>
+      <nav aria-label="Основная навигация">
+        <ul>
+          <li><a href="Signature Frame.html">Home</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="price-section">
+      <div class="price-container">
+        
+        <table class="price-table">
+          <thead>
+            <tr>
+              <th>Помещение</th>
+              <th>1 час</th>
+              <th>2 часа</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Студия 1</td>
+              <td>50p.</td>
+              <td>100p.</td>
+            </tr>
+            <tr>
+              <td>Студия 2</td>
+              <td>60p.</td>
+              <td>110p.</td>
+            </tr>
+            <tr>
+              <td>Студия 3</td>
+              <td>70p.</td>
+              <td>120p.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="contacts">
+      <div>Тел: +375 25 348 921</div>
+      <div>Telegram: @SignatureFrame</div>
+    </div>
+
+    <div class="icons" role="navigation" aria-label="Социальные сети">
+      <a class="social" href="https://www.instagram.com/" aria-label="Instagram">IG</a>
+      <a class="social" href="https://vk.com/" aria-label="VK">VK</a>
+      <a class="social" href="https://www.facebook.com/" aria-label="Facebook">FB</a>
+    </div>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Отзывы - Signature Frame Studio</title>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <style>
+    :root{
+      --bg:#212121;
+      --panel:#000000;
+      --accent:#213839;
+      --muted:#ffffff;
+      --text:#ffffff;
+      --gap:20px;
+      font-family: "Helvetica Neue", Arial, sans-serif;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      background:var(--bg);
+      color:var(--text);
+      line-height:1.45;
+      overflow-x: hidden;
+    }
+
+    /* Header */
+    .signature-style {
+      font-family: "Helvetica Neue", Arial, sans-serif;
+      font-weight: 300;
+      letter-spacing: 1px;
+      font-size: 24px;
+      color: #ffffff;
+      margin: 0;
+      text-transform: none;
+    }
+
+    .topbar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      max-width:1100px;
+      margin:0 auto;
+      padding:18px var(--gap);
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:14px;
+    }
+    nav ul {
+      list-style:none;
+      display:flex;
+      gap:14px;
+      margin:0;
+      padding:0;
+      align-items:center;
+    }
+    nav a{
+      color:var(--text);
+      text-decoration:none;
+      padding:8px 12px;
+      background:#212121;
+      border-radius:2px;
+      font-size:14px;
+    }
+    header {
+      background: #213839;
+      padding: 8px 0;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 23px;
+    }
+
+    .container{
+      max-width:1100px;
+      margin:30px auto;
+      padding:0 var(--gap);
+    }
+
+    /* Заголовок страницы */
+    .page-header {
+      text-align: center;
+      margin: 40px 0 50px;
+    }
+    
+    .page-title {
+      font-family: "Helvetica Neue", Arial, sans-serif;
+      font-weight: 300;
+      letter-spacing: 1px;
+      font-size: 36px;
+      color: #ffffff;
+      margin: 0 0 20px;
+      text-transform: uppercase;
+    }
+    
+    .page-subtitle {
+      font-family: "Helvetica Neue", Arial, sans-serif;
+      font-weight: 300;
+      letter-spacing: 0.5px;
+      font-size: 20px;
+      color: var(--muted);
+      margin: 0;
+      max-width: 700px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* Блок отзывов */
+    .reviews-section {
+      margin: 60px 0;
+    }
+    
+    .review-item {
+      background: #000000;
+      border: 2px solid #213839;
+      border-radius: 8px;
+      margin-bottom: 40px;
+      overflow: hidden;
+    }
+    
+    .review-header {
+      background: #213839;
+      padding: 20px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+    
+    .review-author {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+    
+    .author-avatar {
+      width: 60px;
+      height: 60px;
+      background: #000000;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      font-weight: 300;
+      color: #ffffff;
+      border: 2px solid #ffffff;
+    }
+    
+    .author-info h3 {
+      font-family: "Helvetica Neue", Arial, sans-serif;
+      font-weight: 300;
+      letter-spacing: 1px;
+      font-size: 22px;
+      color: #ffffff;
+      margin: 0 0 5px;
+    }
+    
+    .tour-info {
+      font-family: "Helvetica Neue", Arial, sans-serif;
+      font-weight: 300;
+      letter-spacing: 0.5px;
+      font-size: 16px;
+      color: #d0d0d0;
+      margin: 0;
+    }
+    
+    .review-date {
+      font-family: "Helvetica Neue", Arial, sans-serif;
+      font-weight: 300;
+      letter-spacing: 0.5px;
+      font-size: 16px;
+      color: #d0d0d0;
+      text-align: right;
+    }
+    
+    .review-content {
+      padding: 30px;
+      position: relative;
+    }
+    
+    .review-text {
+      font-family: "Helvetica Neue", Arial, sans-serif;
+      font-weight: 300;
+      letter-spacing: 0.5px;
+      font-size: 18px;
+      color: #ffffff;
+      line-height: 1.7;
+      margin: 0;
+      position: relative;
+      padding-left: 20px;
+    }
+    
+    .review-text::before {
+      content: "❝";
+      position: absolute;
+      left: -15px;
+      top: -10px;
+      font-size: 36px;
+      color: #213839;
+      opacity: 0.7;
+    }
+    
+    .review-rating {
+      position: absolute;
+      right: 30px;
+      bottom: 20px;
+      display: flex;
+      gap: 5px;
+    }
+    
+    .star {
+      color: #FFD700;
+      font-size: 20px;
+    }
+    
+    /* Footer */
+    .contact-info {
+      color: var(--muted);
+      margin: 20px 0 10px 0;
+      font-size: 18px;
+      font-weight: 300;
+      letter-spacing: 1px;
+      font-family: "Helvetica Neue", Arial, sans-serif;
+    }
+    
+    .telegram-info {
+      color: var(--muted);
+      margin: 10px 0 0 0;
+      font-size: 18px;
+      font-weight: 300;
+      letter-spacing: 1px;
+      font-family: "Helvetica Neue", Arial, sans-serif;
+    }
+
+    footer{
+      background:#000000;
+      border-top:6px solid #000000;
+      padding:26px 0 40px;
+      color:var(--muted);
+      text-align:center;
+      margin-top: 40px;
+      position: relative;
+      width: 100vw;
+      left: 50%;
+      transform: translateX(-50%);
+      border-radius: 12px 12px 0 0;
+    }
+    
+    .footer-content {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 var(--gap);
+    }
+    
+    .contacts{
+      max-width:1100px;
+      margin:0 auto;
+      display:flex;
+      justify-content:center;
+      gap:30px;
+      align-items:center;
+      padding:8px;
+    }
+    .icons{
+      display:flex;
+      gap:18px;
+      margin-top:18px;
+      justify-content:center;
+    }
+    .social{
+      display:inline-flex;
+      width:44px;
+      height:44px;
+      align-items:center;
+      justify-content:center;
+      border:2px solid #ffffff;
+      border-radius:6px;
+      color:#ffffff;
+      text-decoration:none;
+      font-weight:700;
+    }
+
+    /* Адаптивность */
+    @media (max-width: 768px) {
+      .page-title {
+        font-size: 28px;
+      }
+      
+      .page-subtitle {
+        font-size: 18px;
+        padding: 0 15px;
+      }
+      
+      .review-header {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 20px;
+      }
+      
+      .review-date {
+        text-align: left;
+        margin-top: 10px;
+      }
+      
+      .review-content {
+        padding: 20px;
+      }
+      
+      .review-text {
+        font-size: 16px;
+        padding-left: 15px;
+      }
+      
+      .review-rating {
+        position: relative;
+        right: auto;
+        bottom: auto;
+        margin-top: 20px;
+        justify-content: center;
+      }
+    }
+    
+    @media (max-width:520px){
+      .topbar{ 
+        padding:14px; 
+        flex-direction: column;
+        gap: 1rem;
+      }
+      nav ul{ 
+        display:flex;
+        justify-content: center;
+        width: 100%;
+      }
+      .signature-style {
+        font-size: 20px;
+      }
+      
+      .page-title {
+        font-size: 24px;
+      }
+      
+      .page-subtitle {
+        font-size: 16px;
+      }
+      
+      .review-author {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+      
+      .author-avatar {
+        width: 50px;
+        height: 50px;
+        font-size: 20px;
+      }
+      
+      .author-info h3 {
+        font-size: 20px;
+      }
+      
+      .tour-info,
+      .review-date {
+        font-size: 14px;
+      }
+      
+      .contacts {
+        flex-direction: column;
+        gap: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <script>
+  $(document).ready(function () {
+    // Анимация для заголовка
+    $(".signature-style").hover(
+      function () {
+        $(this).animate({ letterSpacing: "4px" }, 300)
+               .css("color", "#062324");
+      },
+      function () {
+        $(this).animate({ letterSpacing: "1px" }, 300)
+               .css("color", "#ffffff");
+      }
+    );
+  });
+  </script>
+
+  <header>
+    <div class="topbar">
+      <div class="brand">
+        <h1 class="signature-style">Отзывы</h1>
+      </div>
+      <nav aria-label="Основная навигация">
+        <ul>
+          <li><a href="Signature Frame.html">Home</a></li>
+          <li><a href="обратная связь.html">Обратная связь</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="container">
+      <div class="page-header">
+        <h1 class="page-title">Отзывы клиентов</h1>
+        <p class="page-subtitle">Наши клиенты делятся своими впечатлениями о сотрудничестве со студией Signature Frame</p>
+      </div>
+      
+      <div class="reviews-section">
+        
+        <!-- Отзыв 1 (из примера) -->
+        <div class="review-item">
+          <div class="review-header">
+            <div class="review-author">
+              <div class="author-avatar">А</div>
+              <div class="author-info">
+                <h3>Анна</h3>
+                <p class="tour-info">Студия 3</p>
+              </div>
+            </div>
+            <div class="review-date">
+              15 марта 2024
+            </div>
+          </div>
+          <div class="review-content">
+            <p class="review-text">
+              Отличный фотограф и чудесная студия! Получили именно те кадры, о которых мечтали.
+              Профессионализм на высоте.
+            </p>
+            <div class="review-rating">
+              <span class="star">★</span>
+              <span class="star">★</span>
+              <span class="star">★</span>
+              <span class="star">★</span>
+              <span class="star">★</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Отзыв 2 -->
+        <div class="review-item">
+          <div class="review-header">
+            <div class="review-author">
+              <div class="author-avatar">А</div>
+              <div class="author-info">
+                <h3>Александра</h3>
+                <p class="tour-info">Фотосессия на природе</p>
+              </div>
+            </div>
+            <div class="review-date">
+              10 февраля 2024
+            </div>
+          </div>
+          <div class="review-content">
+            <p class="review-text">
+              Прекрасный опыт! Студия чистая, светлая, с огромным выбором реквизита.
+              Фотограф умеет расположить к себе и поймать лучшие эмоции.
+            </p>
+            <div class="review-rating">
+              <span class="star">★</span>
+              <span class="star">★</span>
+              <span class="star">★</span>
+              <span class="star">★</span>
+              <span class="star">★</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Отзыв 3 -->
+        <div class="review-item">
+          <div class="review-header">
+            <div class="review-author">
+              <div class="author-avatar">Е</div>
+              <div class="author-info">
+                <h3>Екатерина</h3>
+                <p class="tour-info">Студия 1</p>
+              </div>
+            </div>
+            <div class="review-date">
+              5 января 2024
+            </div>
+          </div>
+          <div class="review-content">
+            <p class="review-text">
+              Рекомендую! Работали впервые. С первого кадра ушли все зажимы. 
+              Получились очень живые и естественные фотографии.
+            </p>
+            <div class="review-rating">
+              <span class="star">★</span>
+              <span class="star">★</span>
+              <span class="star">★</span>
+              <span class="star">★</span>
+              <span class="star">☆</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Отзыв 4 -->
+        <div class="review-item">
+          <div class="review-header">
+            <div class="review-author">
+              <div class="author-avatar">С</div>
+              <div class="author-info">
+                <h3>Сергей</h3>
+                <p class="tour-info">Студия 2</p>
+              </div>
+            </div>
+            <div class="review-date">
+              20 декабря 2023
+            </div>
+          </div>
+          <div class="review-content">
+            <p class="review-text">
+              Фотограф не просто снимал, а направлял и подсказывал.
+              Никаких неловких пауз. Полный контроль процесса и комфортная атмосфера.
+            </p>
+            <div class="review-rating">
+              <span class="star">★</span>
+              <span class="star">★</span>
+              <span class="star">★</span>
+              <span class="star">★</span>
+              <span class="star">★</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Отзыв 5 -->
+        <div class="review-item">
+          <div class="review-header">
+            <div class="review-author">
+              <div class="author-avatar">О</div>
+              <div class="author-info">
+                <h3>Ольга</h3>
+                <p class="tour-info">Фотосессия на природе</p>
+              </div>
+            </div>
+            <div class="review-date">
+              1 декабря 2023
+            </div>
+          </div>
+          <div class="review-content">
+            <p class="review-text">
+              Спасибо за терпение и чуткость! Мы с детьми – не самый простой «объект», 
+              но специалист нашла подход ко всем. Итог – шикарные семейные фото.
+            </p>
+            <div class="review-rating">
+              <span class="star">★</span>
+              <span class="star">★</span>
+              <span class="star">★</span>
+              <span class="star">★</span>
+              <span class="star">★</span>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+      
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-content">
+      <div class="contacts">
+        <div>Тел: +375 25 348 921</div>
+        <div>Telegram: @SignatureFrame</div>
+      </div>
+
+      <div class="icons" role="navigation" aria-label="Социальные сети">
+        <a class="social" href="https://www.instagram.com/" aria-label="Instagram">IG</a>
+        <a class="social" href="https://vk.com/" aria-label="VK">VK</a>
+        <a class="social" href="https://www.facebook.com/" aria-label="Facebook">FB</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

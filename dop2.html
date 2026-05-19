@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Услуги - Signature Frame Studio</title>
+<!-- Подключаем jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- Подключаем иконки для кнопки закрытия -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<style>
+  :root{
+    --bg:#212121;
+    --panel:#000000;
+    --accent:#213839;
+    --muted:#ffffff;
+    --text:#ffffff;
+    --gap:20px;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+  }
+  
+  *{box-sizing:border-box}
+  
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    line-height:1.45;
+  }
+
+  .topbar{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    max-width:1100px;
+    margin:0 auto;
+    padding:18px var(--gap);
+  }
+  
+  .brand h1{
+    margin:0;
+    font-weight:300;
+    letter-spacing:1px;
+    font-size:24px;
+    color:#ffffff;
+  }
+  
+  /* Навигационные кнопки */
+  .nav-buttons {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+  
+  .home-btn {
+    background: #213839;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 16px;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 300;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: background 0.3s;
+  }
+  
+  .home-btn:hover {
+    background: #2a4a4b;
+  }
+  
+  .menu-btn {
+    background: transparent;
+    border: none;
+    color: #ffffff;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 5px;
+    display: block;
+  }
+  
+  header {
+    background: #213839;
+    padding: 8px 0;
+    margin-top: 23px;
+  }
+
+  .container {
+    max-width: 1100px;
+    margin: 30px auto;
+    padding: 0 var(--gap);
+  }
+
+  .page-header {
+    text-align: center;
+    margin: 40px 0 50px;
+  }
+  
+  .page-title {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-weight: 300;
+    letter-spacing: 1px;
+    font-size: 36px;
+    color: #ffffff;
+    margin: 0 0 20px;
+    text-transform: uppercase;
+  }
+  
+  .page-subtitle {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-weight: 300;
+    letter-spacing: 0.5px;
+    font-size: 20px;
+    color: var(--muted);
+    margin: 0;
+    max-width: 700px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  .grid {
+    display: grid;
+    gap: 30px;
+    margin-bottom: 60px;
+  }
+
+  .grid-1 { grid-template-columns: 1fr; }
+  
+  @media (min-width: 768px) {
+    .grid-md-2 { grid-template-columns: repeat(2, 1fr); }
+    .menu-btn { display: none; } /* Скрываем кнопку меню на больших экранах */
+  }
+  
+  @media (min-width: 992px) {
+    .grid-lg-3 { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  .service-card {
+    background: #000000;
+    border: 2px solid #213839;
+    border-radius: 8px;
+    overflow: hidden;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .service-image {
+    width: 100%;
+    height: 200px;
+    background: #213839;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    font-size: 48px;
+  }
+
+  .service-content {
+    padding: 25px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .service-title {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-weight: 300;
+    letter-spacing: 1px;
+    font-size: 22px;
+    color: #ffffff;
+    margin: 0 0 15px;
+    text-transform: uppercase;
+  }
+
+  .service-description {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-weight: 300;
+    letter-spacing: 0.5px;
+    font-size: 16px;
+    color: #d0d0d0;
+    line-height: 1.6;
+    margin: 0 0 20px;
+    flex: 1;
+  }
+
+  .service-price {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-weight: 300;
+    letter-spacing: 1px;
+    font-size: 20px;
+    color: #FFD700;
+    margin: 0 0 20px;
+    text-align: center;
+  }
+
+  .service-btn {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    background: #213839;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 16px;
+    font-weight: 300;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+  
+  .service-btn:hover {
+    background: #2a4a4b;
+  }
+
+  .section-title {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-weight: 300;
+    letter-spacing: 1px;
+    font-size: 28px;
+    color: #ffffff;
+    margin: 0 0 30px;
+    text-align: center;
+    text-transform: uppercase;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #213839;
+  }
+
+  @media (max-width: 767px) {
+    .page-title {
+      font-size: 28px;
+    }
+    
+    .page-subtitle {
+      font-size: 18px;
+    }
+    
+    .section-title {
+      font-size: 24px;
+    }
+    
+    .service-title {
+      font-size: 20px;
+    }
+  }
+
+  @media (max-width: 520px) {
+    .topbar{ 
+      padding:14px; 
+    }
+    
+    .brand h1 {
+      font-size: 20px;
+    }
+    
+    .nav-buttons {
+      gap: 10px;
+    }
+    
+    .home-btn {
+      padding: 6px 12px;
+      font-size: 13px;
+    }
+    
+    .page-title {
+      font-size: 24px;
+    }
+    
+    .page-subtitle {
+      font-size: 16px;
+    }
+    
+    .grid {
+      gap: 20px;
+    }
+    
+    .service-content {
+      padding: 20px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="topbar">
+    <div class="brand">
+      <h1>Signature Frame Studio</h1>
+    </div>
+    
+    <div class="nav-buttons">
+      <a href="#" class="home-btn">Home</a>
+      <button class="menu-btn" onclick="alert('Меню открыто')">☰</button>
+    </div>
+  </div>
+</header>
+
+<main class="container">
+  <div class="page-header">
+    <h1 class="page-title">Наши услуги</h1>
+    <p class="page-subtitle">
+      Signature Frame Studio предлагает профессиональные услуги фотосъемки в различных стилях и направлениях.
+    </p>
+  </div>
+
+  <!-- Кнопка для открытия модального окна -->
+  <div style="text-align: center; margin: 30px 0;">
+    <button id="openModalBtn" class="service-btn" style="width: auto; padding: 12px 40px; display: inline-block;">
+      Открыть контактную форму
+    </button>
+  </div>
+
+  <section>
+    <h2 class="section-title">Основные услуги</h2>
+    <div class="grid grid-1 grid-md-2 grid-lg-3">
+      
+      <div class="service-card">
+        <div class="service-image">
+          <div>📸</div>
+        </div>
+        <div class="service-content">
+          <h3 class="service-title">Портретная съемка</h3>
+          <p class="service-description">
+            Профессиональная портретная съемка в студии или на природе.
+          </p>
+          <div class="service-price">от 150 BYN</div>
+          <button class="service-btn open-order-modal" data-service="Портретная съемка">Заказать</button>
+        </div>
+      </div>
+      
+      <div class="service-card">
+        <div class="service-image">
+          <div>👨‍👩‍👧‍👦</div>
+        </div>
+        <div class="service-content">
+          <h3 class="service-title">Семейная фотосессия</h3>
+          <p class="service-description">
+            Теплые и искренние семейные фотографии.
+          </p>
+          <div class="service-price">от 200 BYN</div>
+          <button class="service-btn open-order-modal" data-service="Семейная фотосессия">Заказать</button>
+        </div>
+      </div>
+      
+      <div class="service-card">
+        <div class="service-image">
+          <div>💍</div>
+        </div>
+        <div class="service-content">
+          <h3 class="service-title">Love Story</h3>
+          <p class="service-description">
+            Романтическая фотосессия для влюбленных пар.
+          </p>
+          <div class="service-price">от 180 BYN</div>
+          <button class="service-btn open-order-modal" data-service="Love Story">Заказать</button>
+        </div>
+      </div>
+      
+    </div>
+  </section>
+</main>
+
+<!-- Модальное окно с классами в стиле CSS-фреймворка -->
+<div id="myModal" class="modal" tabindex="-1" role="dialog" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1050; overflow: hidden; outline: 0;">
+  <!-- Темный полупрозрачный фон (backdrop) -->
+  <div class="modal-backdrop fade show" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); z-index: 1040;"></div>
+  
+  <!-- Центральное окно -->
+  <div class="modal-dialog modal-dialog-centered" style="position: relative; width: auto; margin: 0.5rem; pointer-events: none; z-index: 1050; max-width: 500px; margin: 1.75rem auto; display: flex; align-items: center; min-height: calc(100% - 3.5rem);">
+    <div class="modal-content" style="position: relative; display: flex; flex-direction: column; width: 100%; pointer-events: auto; background-color: #fff; background-clip: padding-box; border: 1px solid rgba(0,0,0,.2); border-radius: 0.3rem; outline: 0; box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);">
+      
+      <!-- Заголовок модального окна -->
+      <div class="modal-header" style="display: flex; flex-shrink: 0; align-items: center; justify-content: space-between; padding: 1rem 1rem; border-bottom: 1px solid #dee2e6; border-top-left-radius: calc(0.3rem - 1px); border-top-right-radius: calc(0.3rem - 1px);">
+        <h5 class="modal-title" style="margin-bottom: 0; line-height: 1.5; font-size: 1.25rem; font-weight: 500; color: #212529;">Заказать услугу</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="padding: 0; background-color: transparent; border: 0; font-size: 1.5rem; font-weight: 700; line-height: 1; color: #000; text-shadow: 0 1px 0 #fff; opacity: .5;">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      
+      <!-- Тело модального окна -->
+      <div class="modal-body" style="position: relative; flex: 1 1 auto; padding: 1rem; color: #212529;">
+        <p>Заполните форму ниже, и мы свяжемся с вами для уточнения деталей заказа.</p>
+        
+        <form id="orderForm">
+          <div class="form-group" style="margin-bottom: 1rem;">
+            <label for="serviceName" style="display: inline-block; margin-bottom: 0.5rem; color: #495057;">Услуга</label>
+            <input type="text" class="form-control" id="serviceName" readonly style="display: block; width: 100%; padding: 0.375rem 0.75rem; font-size: 1rem; line-height: 1.5; color: #495057; background-color: #fff; background-clip: padding-box; border: 1px solid #ced4da; border-radius: 0.25rem; transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;">
+          </div>
+          
+          <div class="form-group" style="margin-bottom: 1rem;">
+            <label for="clientName" style="display: inline-block; margin-bottom: 0.5rem; color: #495057;">Ваше имя</label>
+            <input type="text" class="form-control" id="clientName" required style="display: block; width: 100%; padding: 0.375rem 0.75rem; font-size: 1rem; line-height: 1.5; color: #495057; background-color: #fff; background-clip: padding-box; border: 1px solid #ced4da; border-radius: 0.25rem; transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;">
+          </div>
+          
+          <div class="form-group" style="margin-bottom: 1rem;">
+            <label for="clientPhone" style="display: inline-block; margin-bottom: 0.5rem; color: #495057;">Номер телефона</label>
+            <input type="tel" class="form-control" id="clientPhone" required style="display: block; width: 100%; padding: 0.375rem 0.75rem; font-size: 1rem; line-height: 1.5; color: #495057; background-color: #fff; background-clip: padding-box; border: 1px solid #ced4da; border-radius: 0.25rem; transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;">
+          </div>
+          
+          <div class="form-group" style="margin-bottom: 1rem;">
+            <label for="clientEmail" style="display: inline-block; margin-bottom: 0.5rem; color: #495057;">Email</label>
+            <input type="email" class="form-control" id="clientEmail" style="display: block; width: 100%; padding: 0.375rem 0.75rem; font-size: 1rem; line-height: 1.5; color: #495057; background-color: #fff; background-clip: padding-box; border: 1px solid #ced4da; border-radius: 0.25rem; transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;">
+          </div>
+          
+          <div class="form-group" style="margin-bottom: 1rem;">
+            <label for="message" style="display: inline-block; margin-bottom: 0.5rem; color: #495057;">Дополнительная информация</label>
+            <textarea class="form-control" id="message" rows="3" style="display: block; width: 100%; padding: 0.375rem 0.75rem; font-size: 1rem; line-height: 1.5; color: #495057; background-color: #fff; background-clip: padding-box; border: 1px solid #ced4da; border-radius: 0.25rem; transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;"></textarea>
+          </div>
+        </form>
+      </div>
+      
+      <!-- Футер модального окна -->
+      <div class="modal-footer" style="display: flex; flex-wrap: wrap; flex-shrink: 0; align-items: center; justify-content: flex-end; padding: 0.75rem; border-top: 1px solid #dee2e6; border-bottom-right-radius: calc(0.3rem - 1px); border-bottom-left-radius: calc(0.3rem - 1px);">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="color: #fff; background-color: #6c757d; border-color: #6c757d; display: inline-block; font-weight: 400; text-align: center; vertical-align: middle; user-select: none; border: 1px solid transparent; padding: 0.375rem 0.75rem; font-size: 1rem; line-height: 1.5; border-radius: 0.25rem; transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out; margin-right: 0.5rem;">Отмена</button>
+        <button type="button" class="btn btn-primary" id="submitOrder" style="color: #fff; background-color: #213839; border-color: #213839; display: inline-block; font-weight: 400; text-align: center; vertical-align: middle; user-select: none; border: 1px solid transparent; padding: 0.375rem 0.75rem; font-size: 1rem; line-height: 1.5; border-radius: 0.25rem; transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;">Отправить заявку</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  $(document).ready(function() {
+    // Функция открытия модального окна
+    function openModal(serviceName = '') {
+      if (serviceName) {
+        $('#serviceName').val(serviceName);
+      }
+      $('#myModal').show();
+      $('body').css('overflow', 'hidden'); // Блокируем скролл на фоне
+    }
+    
+    // Функция закрытия модального окна
+    function closeModal() {
+      $('#myModal').hide();
+      $('body').css('overflow', 'auto'); // Восстанавливаем скролл
+      // Очищаем форму
+      $('#orderForm')[0].reset();
+      $('#serviceName').val('');
+    }
+    
+    // Открытие модального окна по кнопке
+    $('#openModalBtn').click(function() {
+      openModal();
+    });
+    
+    // Открытие модального окна с выбранной услугой
+    $('.open-order-modal').click(function() {
+      const serviceName = $(this).data('service');
+      openModal(serviceName);
+    });
+    
+    // Закрытие модального окна по кнопке закрытия
+    $('.close, .btn-secondary').click(function() {
+      closeModal();
+    });
+    
+    // Закрытие модального окна по клику на фон
+    $('.modal-backdrop').click(function() {
+      closeModal();
+    });
+    
+    // Предотвращаем закрытие при клике на само модальное окно
+    $('.modal-content').click(function(e) {
+      e.stopPropagation();
+    });
+    
+    // Обработка отправки формы
+    $('#submitOrder').click(function() {
+      const serviceName = $('#serviceName').val();
+      const clientName = $('#clientName').val();
+      const clientPhone = $('#clientPhone').val();
+      
+      if (!clientName || !clientPhone) {
+        alert('Пожалуйста, заполните обязательные поля: Имя и Телефон');
+        return;
+      }
+      
+      // В реальном приложении здесь был бы AJAX-запрос
+      alert(`Спасибо, ${clientName}! Ваша заявка на "${serviceName || 'услугу'}" принята. Мы свяжемся с вами по телефону ${clientPhone} в ближайшее время.`);
+      closeModal();
+    });
+    
+    // Закрытие по клавише Escape
+    $(document).keydown(function(e) {
+      if (e.key === 'Escape' && $('#myModal').is(':visible')) {
+        closeModal();
+      }
+    });
+  });
+</script>
+
+</body>
+</html>

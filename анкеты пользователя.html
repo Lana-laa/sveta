@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <title>Анкета</title>
+  <style>
+    :root{
+      --bg:#213839;
+      --card:#ffffff;
+      --accent:#000000;
+      --muted:#213839;
+    }
+    body{
+      margin:0;
+      font-family: Arial, Helvetica, sans-serif;
+      background:linear-gradient(180deg,var(--bg),#eef3fb);
+      color:#222;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      min-height:100vh;
+      padding:20px;
+    }
+    .container{
+      width:100%;
+      max-width:700px;
+      background:var(--card);
+      border-radius:8px;
+      box-shadow:0 6px 22px rgba(33,100,208,0.08);
+      padding:24px;
+    }
+    h1{
+      text-align:center;
+      margin:0 0 18px;
+      color:var(--accent);
+    }
+    form{
+      display:grid;
+      gap:14px;
+    }
+    .row{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+    label{
+      display:block;
+      font-size:14px;
+      margin-bottom:6px;
+      color:var(--muted);
+    }
+    .field{
+      flex:1 1 200px;
+      min-width:160px;
+    }
+    input[type="text"],
+    input[type="password"],
+    input[type="date"],
+    input[type="tel"],
+    select,
+    textarea{
+      width:100%;
+      box-sizing:border-box;
+      padding:9px 10px;
+      border:1px solid #d0d5df;
+      border-radius:6px;
+      font-size:14px;
+      background:#fff;
+      transition:box-shadow .15s, border-color .15s;
+    }
+    input:focus, select:focus, textarea:focus{
+      outline:none;
+      border-color:var(--accent);
+      box-shadow:0 0 0 3px rgba(33,100,208,0.08);
+    }
+    textarea{
+      min-height:120px;
+      resize:vertical;
+    }
+    .controls{
+      display:flex;
+      gap:10px;
+      align-items:center;
+    }
+    .checkboxes, .radios{
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+      margin-top:6px;
+    }
+    .inline{
+      display:flex;
+      gap:8px;
+      align-items:center;
+    }
+    .hint{
+      font-size:12px;
+      color:#888;
+    }
+    .buttons{
+      display:flex;
+      gap:12px;
+      justify-content:center;
+      margin-top:8px;
+    }
+    button{
+      padding:8px 16px;
+      border-radius:6px;
+      border:1px solid #bfc7d6;
+      background:#f3f6fb;
+      cursor:pointer;
+      font-size:14px;
+    }
+    button[type="submit"]{
+      background:var(--accent);
+      color:#fff;
+      border-color:rgba(0,0,0,0.08);
+    }
+    button:hover{ opacity:0.95; }
+    @media (max-width:520px){
+      .row{ flex-direction:column; }
+      .field{ min-width:100%; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Анкета пользователя</h1>
+
+    <form action="#" method="post" autocomplete="on">
+      <!-- Personal data -->
+      <div class="row">
+        <div class="field">
+          <label for="surname">Фамилия</label>
+          <input id="surname" name="surname" type="text" placeholder="Иванов" required>
+        </div>
+
+        <div class="field">
+          <label for="name">Имя</label>
+          <input id="name" name="name" type="text" placeholder="Иван" required>
+        </div>
+
+        <div class="field">
+          <label for="middlename">Отчество</label>
+          <input id="middlename" name="middlename" type="text" placeholder="Иванович">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="field">
+          <label for="password">Пароль</label>
+          <input id="password" name="password" type="password" placeholder="••••••••" required minlength="6">
+          <div class="hint">Минимум 6 символов</div>
+        </div>
+
+        <div class="field">
+          <label for="birth">Дата рождения</label>
+          <input id="birth" name="birth" type="date">
+        </div>
+      </div>
+
+      <!-- Select box -->
+      <div>
+        <label for="education">Уровень образования</label>
+        <select id="education" name="education" required>
+          <option value="">-- выберите --</option>
+          <option>Среднее</option>
+          <option>Среднее специальное / ПТУ</option>
+          <option>Высшее (бакалавр)</option>
+          <option>Высшее (магистр)</option>
+          <option>Аспирантура / кандидат наук</option>
+        </select>
+      </div>
+
+      <!-- Checkboxes -->
+      <div>
+        <label>Интересы (отметьте всё подходящее)</label>
+        <div class="checkboxes" role="group" aria-label="Интересы">
+          <label class="inline"><input type="checkbox" name="interests" value="спорт"> Спорт</label>
+          <label class="inline"><input type="checkbox" name="interests" value="чтение"> Чтение</label>
+          <label class="inline"><input type="checkbox" name="interests" value="путешествия"> Путешествия</label>
+          <label class="inline"><input type="checkbox" name="interests" value="технологии"> Технологии</label>
+        </div>
+      </div>
+
+      <!-- Radio buttons -->
+      <div>
+        <label>Удобный способ связи</label>
+        <div class="radios" role="radiogroup" aria-label="Удобный способ связи">
+          <label class="inline"><input type="radio" name="contact" value="phone" required> Телефон</label>
+          <label class="inline"><input type="radio" name="contact" value="work"> Рабочий телефон</label>
+          <label class="inline"><input type="radio" name="contact" value="email"> Электронная почта</label>
+        </div>
+      </div>
+
+      <!-- Optional contact fields -->
+      <div class="row">
+        <div class="field">
+          <label for="phone">Телефон</label>
+          <input id="phone" name="phone" type="tel" placeholder="+7 (___) ___-__-__" pattern="^+?d{6,20}$">
+        </div>
+        <div class="field">
+          <label for="email">Email</label>
+          <input id="email" name="email" type="text" inputmode="email" placeholder="example@mail.com">
+        </div>
+      </div>
+
+      <!-- Large text area -->
+      <div>
+        <label for="about">Немного о себе</label>
+        <textarea id="about" name="about" placeholder="Расскажите о своих навыках, опыте, ожиданиях..." rows="6"></textarea>
+      </div>
+
+      <!-- Buttons -->
+      <div class="buttons">
+        <button type="reset">Сброс</button>
+        <button onclick="alert('Анкета отправлена!');">Отправить</button>
+      </div>
+    </form>
+  </div>
+</body>
+</html>

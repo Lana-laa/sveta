@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Signature Frame - Portfolio</title>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <style>
+    :root{
+      --bg:#212121;
+      --panel:#000000;
+      --accent:#213839;
+      --muted:#ffffff;
+      --text:#ffffff;
+      --gap:20px;
+      font-family: "Helvetica Neue", Arial, sans-serif;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      background:var(--bg);
+      color:var(--text);
+      line-height:1.45;
+    }
+
+    /* Стиль Portfoli */
+    .signature-style {
+      font-family: "Helvetica Neue", Arial, sans-serif;
+      font-weight: 300;
+      letter-spacing: 1px;
+      font-size: 24px;
+      color: #ffffff;
+      margin: 0;
+      text-transform: none;
+    }
+
+    /* Header */
+    .topbar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      max-width:1100px;
+      margin:0 auto;
+      padding:18px var(--gap);
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:14px;
+    }
+    nav ul {
+      list-style:none;
+      display:flex;
+      gap:14px;
+      margin:0;
+      padding:0;
+      align-items:center;
+    }
+    nav a{
+      color:var(--text);
+      text-decoration:none;
+      padding:8px 12px;
+      background:#212121;
+      border-radius:2px;
+      font-size:14px;
+    }
+    header {
+      background: #213839;
+      padding: 8px 0;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 23px;
+    }
+
+    /* Spacing между секциями */
+    .section-spacing {
+      background-color: #212121;
+      height: 40px;
+      width: 100%;
+    }
+
+    /* Main content */
+    .container{
+      max-width:1100px;
+      margin:30px auto;
+      padding:0 var(--gap);
+    }
+
+    .portfolio-section {
+      background: #000000;
+      padding: 40px 0 40px;
+      position: relative;
+      width: 100%;
+    }
+    
+    .portfolio-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 var(--gap);
+    }
+    
+    .section-title {
+      margin: 0 0 20px;
+      padding: 12px 16px;
+      background: var(--accent);
+      color: #ffffff;
+      font-weight: 300;
+      letter-spacing: 1px;
+      text-align: center;
+      width: 100%;
+      display: block;
+      font-size: 24px;
+      font-family: "Helvetica Neue", Arial, sans-serif;
+    }
+    
+    .gallery{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:12px;
+      margin-top: 40px;
+    }
+    
+    .thumb{
+      background:#000000;
+      overflow:hidden;
+      border:4px solid #000000;
+      display:block;
+    }
+    .thumb img{
+      width:100%;
+      height:100%;
+      display:block;
+      object-fit:cover;
+      transition:transform .3s ease;
+    }
+
+    .thumb:hover img{ 
+      transform:scale(1.03); 
+    }
+
+    /* Footer */
+    footer{
+      background:#000000;
+      border-top:6px solid #000000;
+      padding:26px 0 40px;
+      color:var(--muted);
+      text-align:center;
+    }
+    .contacts{
+      max-width:1100px;
+      margin:0 auto;
+      display:flex;
+      justify-content:center;
+      gap:30px;
+      align-items:center;
+      padding:8px;
+    }
+    .icons{
+      display:flex;
+      gap:18px;
+      margin-top:18px;
+      justify-content:center;
+    }
+    .social{
+      display:inline-flex;
+      width:44px;
+      height:44px;
+      align-items:center;
+      justify-content:center;
+      border:2px solid #ffffff;
+      border-radius:6px;
+      color:#ffffff;
+      text-decoration:none;
+      font-weight:700;
+    }
+
+    /* Responsive */
+    @media (max-width:900px){
+      .gallery{ grid-template-columns:repeat(2,1fr); }
+    }
+    @media (max-width:520px){
+      .gallery{ grid-template-columns:repeat(1,1fr); }
+      nav ul{ display:none; }
+      .topbar{ padding:14px; }
+      .brand h1,
+      .signature-style,
+      .section-title {
+        font-size: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <script>
+    $(document).ready(function () {
+      $(".signature-style").hover(
+        function () {
+          $(this).animate({ letterSpacing: "4px" }, 300)
+                 .css("color", "#062324");
+        },
+        function () {
+          $(this).animate({ letterSpacing: "1px" }, 300)
+                 .css("color", "#ffffff");
+        }
+      );
+    });
+  </script>
+
+  <header>
+    <div class="topbar">
+      <div class="brand">
+        <h1 class="signature-style">Portfolio</h1>
+      </div>
+      <nav aria-label="Основная навигация">
+        <ul>
+          <li><a href="Signature Frame.html">Home</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <div class="section-spacing"></div>
+
+  <main>
+    <!-- Черный фон для портфолио -->
+    <section class="portfolio-section">
+      <div class="portfolio-container">
+        
+        <div class="gallery" aria-label="Галерея работ">
+          <a class="thumb" href="#">
+            <img src="scr1.1.png" alt="Портфолио 1">
+          </a>
+          <a class="thumb" href="#">
+            <img src="scr1.2.png" alt="Портфолио 2">
+          </a>
+          <a class="thumb" href="#">
+            <img src="scr1.3.png" alt="Портфолио 3">
+          </a>
+          <a class="thumb" href="#">
+            <img src="scr1.4.png" alt="Портфолио 4">
+          </a>
+          <a class="thumb" href="#">
+            <img src="scr1.5.png" alt="Портфолио 5">
+          </a>
+          <a class="thumb" href="#">
+            <img src="scr1.6.png" alt="Портфолио 6">
+          </a>
+          <a class="thumb" href="#">
+            <img src="scr1.7.png" alt="Портфолио 7">
+          </a>
+          <a class="thumb" href="#">
+            <img src="scr1.8.png" alt="Портфолио 8">
+          </a>
+          <a class="thumb" href="#">
+            <img src="scr1.9.png" alt="Портфолио 9">
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="section-spacing"></div>
+
+  <footer>
+    <div class="contacts">
+      <div>Тел: +375 25 348 921</div>
+      <div>Telegram: @SignatureFrame</div>
+    </div>
+
+    <div class="icons" role="navigation" aria-label="Социальные сети">
+      <a class="social" href="https://www.instagram.com/" aria-label="Instagram">IG</a>
+      <a class="social" href="https://vk.com/" aria-label="VK">VK</a>
+      <a class="social" href="https://www.facebook.com/" aria-label="Facebook">FB</a>
+    </div>
+  </footer>
+
+</body>
+</html>
