@@ -1,0 +1,239 @@
+/* =========================================
+   СТИЛИ ДЛЯ СТРАНИЦЫ ДЕТАЛЕЙ КВЕСТА
+   ========================================= */
+
+   html {
+    scroll-behavior: smooth;
+}
+
+/* Общая обертка для отступов между блоками */
+.quest-page-wrapper {
+    padding-top: 30px;
+    padding-bottom: 50px;
+}
+
+/* --- Стили для новой шапки --- */
+.header {
+    background-color: #000;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    /* Тот самый фоновый узор со страницы входа */
+    background-image: radial-gradient(circle at 50% 50%, transparent, #000), 
+                      url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200"><path d="M0 100 Q 50 0 100 100 T 200 100" fill="none" stroke="%23500" stroke-width="3"/></svg>');
+}
+
+
+.logo-main {
+    font-size: 100px;
+    letter-spacing: 15px;
+    font-family: 'Times New Roman', serif;
+    font-weight: 300;
+    color: #fff;
+    z-index: 2;
+    margin: 0;
+}
+
+.nav-btn {
+    border: none;
+    outline: none;
+    cursor: pointer;
+    /* ваши остальные стили */
+}
+
+/* Адаптивность для мобильных устройств */
+@media (max-width: 768px) {
+    .header {
+        height: 200px;
+    }
+    .logo-main {
+        font-size: 60px;
+        letter-spacing: 8px;
+    }
+}
+
+/* Стандартный темный блок контента (как на макете) */
+.content-block {
+    background-color: var(--dark-grey);
+    padding: 30px;
+    margin-bottom: 25px;
+    border-radius: 4px;
+}
+
+/* --- Блок 1: Геро-секция (фото + инфо) --- */
+.hero-block {
+    display: flex;
+    gap: 30px;
+    padding: 0; /* Убираем padding, чтобы картинка была вплотную к краю */
+    overflow: hidden;
+}
+
+.hero-image {
+    width: 45%;
+    min-height: 350px;
+    object-fit: cover; /* Это важно: фото заполнит область без искажения пропорций */
+    display: block;
+}
+
+.hero-info {
+    width: 55%;
+    padding: 30px 30px 30px 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.hero-title-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.hero-title-row h2 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 400;
+}
+
+.age-badge-large {
+    font-size: 18px;
+    color: #aaa;
+}
+
+.quest-features-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 25px 0;
+    color: #ccc;
+    font-size: 14px;
+    line-height: 1.8;
+}
+
+.difficulty-icons {
+    color: white;
+    font-size: 16px;
+    letter-spacing: 2px;
+}
+
+/* Находим этот блок в CSS */
+.book-btn {
+    align-self: flex-start;
+    padding: 12px 30px;
+    font-size: 16px;
+    border: none; /* Добавьте эту строку */
+    outline: none; /* Рекомендуется добавить, чтобы убрать контур при нажатии */
+    cursor: pointer; /* Чтобы при наведении появлялся "палец" */
+}
+
+/* --- Блок 2: Описание --- */
+.description-block p {
+    color: #ccc;
+    line-height: 1.6;
+    font-size: 14px;
+    margin: 0;
+}
+
+/* --- Блок 3: Отзывы --- */
+.reviews-header-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+/* Переопределяем padding, так как он уже есть в .content-block */
+.reviews-section {
+    padding: 0; 
+}
+
+/* --- Блок 4: Расписание (Сетка времени) --- */
+.schedule-table {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.schedule-row {
+    display: flex;
+    gap: 10px;
+}
+
+.schedule-day {
+    background-color: var(--burgundy);
+    width: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.schedule-time {
+    background-color: #000;
+    flex: 1;
+    text-align: center;
+    padding: 12px 0;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background 0.3s, border 0.3s;
+    border: 1px solid transparent;
+}
+
+.schedule-time:hover {
+    background-color: var(--dark-grey);
+    border: 1px solid var(--burgundy);
+}
+
+/* --- Блок 5: Карта --- */
+.map-section-wrapper {
+    margin-bottom: 30px;
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+}
+
+.map-image {
+    width: 100%;
+    max-width: 800px; /* Ограничиваем ширину как на макете */
+    border-radius: 10px;
+    object-fit: cover;
+    display: block;
+}
+
+/* --- Адаптивность для мобильных экранов --- */
+@media (max-width: 768px) {
+    .hero-block {
+        flex-direction: column;
+    }
+    
+    .hero-image {
+        width: 100%;
+        height: 250px;
+        min-height: auto;
+    }
+    
+    .hero-info {
+        width: 100%;
+        padding: 20px;
+    }
+    
+    .reviews-header-flex {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .schedule-row {
+        flex-wrap: wrap;
+    }
+    
+    .schedule-time {
+        flex-basis: calc(33.333% - 10px); /* По 3 плашки времени в ряд на мобилках */
+    }
+}

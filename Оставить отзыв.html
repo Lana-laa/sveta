@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VINUM - Оставить отзыв</title>
+    <link rel="stylesheet" href="Главная страница.css"> 
+    <link rel="stylesheet" href="Оставить отзыв.css">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+    <header class="header">
+        <div class="header-content">
+            <h1 class="logo-main">VINUM</h1>
+        </div>
+    </header>
+
+    <nav class="nav-bar">
+        <div class="container nav-content">
+            <a href="Каталог квестов.html" class="nav-btn" style="text-decoration: none; display: inline-block; text-align: center;">Все квесты</a>
+        </div>
+    </nav>
+
+    <main class="container quest-page-wrapper">
+        
+        <section class="content-block form-block" id="formContainer">
+            <h2 class="section-title">Оставить отзыв</h2>
+            <p class="form-description">Поделитесь своими впечатлениями о пройденном квесте. Ваш отзыв поможет другим игрокам сделать правильный выбор, а нам — стать лучше.</p>
+
+            <form action="#" method="POST" class="review-form" id="questReviewForm">
+                
+                <div class="form-group">
+                    <label for="userName">Ваше имя</label>
+                    <input type="text" id="userName" name="userName" class="form-control" placeholder="Например: Александр" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Оценка</label>
+                    <div class="star-rating">
+                        <input type="radio" id="star5" name="rating" value="5" required>
+                        <label for="star5" class="fas fa-star"></label>
+                        <input type="radio" id="star4" name="rating" value="4">
+                        <label for="star4" class="fas fa-star"></label>
+                        <input type="radio" id="star3" name="rating" value="3">
+                        <label for="star3" class="fas fa-star"></label>
+                        <input type="radio" id="star2" name="rating" value="2">
+                        <label for="star2" class="fas fa-star"></label>
+                        <input type="radio" id="star1" name="rating" value="1">
+                        <label for="star1" class="fas fa-star"></label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="reviewText">Текст отзыва</label>
+                    <textarea id="reviewText" name="reviewText" class="form-control" placeholder="Расскажите, что вам понравилось больше всего..." required></textarea>
+                </div>
+
+                <button type="submit" class="nav-btn login-btn submit-btn">Отправить отзыв</button>
+
+            </form>
+        </section>
+
+    </main>
+
+    <footer class="footer">
+        <div class="footer-accent-bar">
+            <div class="container">
+                <div class="barcode-box">
+                    <div class="barcode-lines">|||| || ||| || ||||</div>
+                    <div class="barcode-text">V I N U M</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-main">
+            <div class="container">
+                <div class="footer-flex">
+                    <div class="contacts">
+                        <h3>Контакты</h3>
+                        <p><i class="fab fa-telegram-plane"></i> @VINUM</p>
+                        <p><i class="fas fa-phone-alt"></i> +375 33 349 9319</p>
+                    </div>
+                    <div class="social-links">
+                        <a href="https://www.instagram.com/"><i class="fab fa-instagram"></i></a>
+                        <a href="https://vk.com/"><i class="fab fa-vk"></i></a>
+                        <a href="https://www.facebook.com/"><i class="fab fa-facebook-square"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('questReviewForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Предотвращаем перезагрузку страницы
+            
+            const container = document.getElementById('formContainer');
+            
+            // Плавная замена контента
+            container.innerHTML = `
+                <div style="text-align: center; padding: 20px 0;">
+                    <i class="fas fa-check-circle" style="font-size: 60px; color: var(--burgundy, #7a0016); margin-bottom: 20px;"></i>
+                    <h2 class="section-title">Отзыв оставлен!</h2>
+                    <p class="form-description">Спасибо! Ваш отзыв был успешно отправлен и скоро появится на сайте после проверки модератором.</p>
+                    <a href="Каталог квестов.html" class="nav-btn" style="text-decoration: none; display: inline-block; margin-top: 10px;">Вернуться в каталог</a>
+                </div>
+            `;
+        });
+    </script>
+
+</body>
+</html>

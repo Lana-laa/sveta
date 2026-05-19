@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VINUM - Личный кабинет</title>
+    <link rel="stylesheet" href="Личный кабинет.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+    <header class="header">
+        <div class="header-content">
+            <h1 class="logo-main">VINUM</h1>
+        </div>
+    </header>
+
+    <nav class="user-nav">
+        <div class="container">
+            <div class="user-info">
+                <i class="fas fa-user-circle"></i>
+                <span>VINUM</span>
+            </div>
+            <a href="Каталог квестов.html" class="btn-all-quests">Все квесты</a>
+        </div>
+    </nav>
+
+    <main class="content-wrapper">
+        <div class="container">
+            <h2 class="section-title">Мои бронирования</h2>
+            
+            <div class="bookings-grid">
+                <div class="booking-card">
+                    <h3>Нижний предел</h3>
+                    <p class="status">Завершена</p>
+                    <p class="date">Бронь: 15.01.2026</p>
+                </div>
+
+                <div class="booking-card">
+                    <h3>Последний ряд</h3>
+                    <p class="status">Отменена</p>
+                    <p class="date">Бронь: 13.05.2025</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-accent-bar">
+            <div class="container">
+                <div class="barcode-box">
+                    <div class="barcode-lines">|||| || ||| || ||||</div>
+                    <div class="barcode-text">V I N U M</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-main">
+            <div class="container">
+                <div class="footer-flex">
+                    <div class="contacts">
+                        <h3>Контакты</h3>
+                        <p><i class="fab fa-telegram-plane"></i> @VINUM</p>
+                        <p><i class="fas fa-phone-alt"></i> +375 33 349 931</p>
+                    </div>
+                    <div class="social-links">
+                        <a href="https://www.instagram.com/"><i class="fab fa-instagram"></i></a>
+                        <a href="https://vk.com/"><i class="fab fa-vk"></i></a>
+                        <a href="https://www.facebook.com/"><i class="fab fa-facebook-square"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const newBookingJSON = localStorage.getItem('newBooking');
+
+            if (newBookingJSON) {
+                const bookingData = JSON.parse(newBookingJSON);
+                const bookingsGrid = document.querySelector('.bookings-grid');
+
+                const newCardHTML = `
+                    <div class="booking-card" style="border: 1px solid #7a0c0c; box-shadow: 0 0 10px rgba(122, 12, 12, 0.5);">
+                        <h3>${bookingData.questName}</h3>
+                        <p class="status" style="color: #4CAF50; font-weight: bold;">${bookingData.status}</p>
+                        <p class="date">${bookingData.date}</p>
+                    </div>
+                `;
+
+                bookingsGrid.insertAdjacentHTML('afterbegin', newCardHTML);
+                localStorage.removeItem('newBooking');
+            }
+        });
+    </script>
+</body>
+</html>

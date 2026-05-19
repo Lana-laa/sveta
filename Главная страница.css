@@ -1,0 +1,248 @@
+:root {
+    --bg-black: #0a0a0a;
+    --dark-grey: #262626;
+    --burgundy: #800c0c;
+    --burgundy-hover: #a01010;
+    --text-white: #e0e0e0;
+}
+
+body {
+    background-color: var(--bg-black);
+    color: var(--text-white);
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
+/* --- HEADER --- */
+.header {
+    background-color: #000;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    background-image: radial-gradient(circle at 50% 50%, transparent, #000), 
+                      url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200"><path d="M0 100 Q 50 0 100 100 T 200 100" fill="none" stroke="%23500" stroke-width="3"/></svg>');
+    background-repeat: repeat;
+}
+
+.logo-main {
+    font-family: 'Times New Roman', serif;
+    font-size: clamp(60px, 10vw, 100px);
+    letter-spacing: 15px;
+    font-weight: 300;
+    color: #ffffff;
+    text-transform: uppercase;
+    margin: 0;
+    z-index: 2;
+    position: relative;
+}
+
+/* --- NAV BAR & SEARCH --- */
+.nav-bar {
+    background-color: var(--dark-grey);
+    padding: 15px 0;
+    width: 100%;
+}
+
+.nav-content {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* ОБНОВЛЕННЫЕ СТИЛИ ПОИСКА */
+.search-box {
+    flex-grow: 1;
+    position: relative;
+    max-width: 500px;
+}
+
+.search-box input {
+    width: 100%;
+    background: var(--burgundy);
+    border: none;
+    padding: 10px 45px 10px 15px;
+    color: white;
+    border-radius: 4px; /* Такой же как у кнопок */
+    outline: none;
+    font-family: inherit;
+    font-size: 14px;
+    transition: background 0.3s, box-shadow 0.3s;
+    box-sizing: border-box;
+}
+
+.search-box input:focus {
+    background: var(--burgundy-hover); /* Имитируем hover-эффект кнопок при фокусе */
+    box-shadow: 0 0 8px rgba(160, 16, 16, 0.4);
+}
+
+.search-box input::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.search-icon {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: white;
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+/* КНОПКИ НАВИГАЦИИ */
+.nav-btn {
+    background: var(--burgundy);
+    color: white;
+    text-decoration: none;
+    padding: 10px 25px;
+    border-radius: 4px;
+    font-weight: 400;
+    font-size: 14px;
+    transition: background 0.3s;
+    white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav-btn:hover {
+    background: var(--burgundy-hover);
+}
+
+.quest-card {
+    text-decoration: none; /* Убирает подчеркивание */
+    color: inherit;        /* Наследует цвет текста от родителя */
+    display: block;        /* Чтобы ссылка вела себя как блочный элемент */
+}
+
+.quest-card:hover {
+    /* Можно добавить эффект при наведении, например: */
+    transform: translateY(-5px);
+    transition: transform 0.3s ease;
+}
+
+/* --- ОСТАЛЬНЫЕ СТИЛИ --- */
+.content-section { padding: 60px 0; }
+
+.quest-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+}
+
+.quest-card {
+    background: var(--dark-grey);
+    border-radius: 4px;
+    overflow: hidden;
+    transition: transform 0.3s;
+}
+
+.quest-card:hover { transform: translateY(-5px); }
+
+.quest-image {
+    height: 250px;
+    position: relative;
+    overflow: hidden; /* Обрезает картинку, если она больше блока */
+    background-color: var(--dark-grey); /* Фон, пока грузится фото */
+}
+
+.quest-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Картинка заполняет блок без искажений */
+    display: block;
+    transition: transform 0.5s ease; /* Плавное увеличение при наведении */
+}
+
+/* Эффект зума при наведении на карточку */
+.quest-card:hover .quest-image img {
+    transform: scale(1.1);
+}
+
+.age-badge {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-weight: bold;
+    background: rgba(0, 0, 0, 0.6); /* Полупрозрачный фон для читаемости */
+    padding: 2px 8px;
+    border-radius: 3px;
+    z-index: 1;
+}
+.age-badge {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-weight: bold;
+}
+
+.quest-info { padding: 15px; }
+.quest-info h3 { margin: 0 0 5px 0; font-size: 1.1rem; }
+.quest-info p { margin: 0; font-size: 0.8rem; color: #aaa; }
+.difficulty { margin-top: 5px; color: var(--burgundy); font-weight: bold; }
+
+.reviews-section {
+    background-color: var(--dark-grey);
+    padding: 60px 0;
+}
+
+.section-title { margin-bottom: 30px; font-weight: 300; }
+
+.reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.review-card {
+    background: var(--burgundy);
+    padding: 25px;
+    border-radius: 4px;
+}
+
+.review-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.avatar { font-size: 24px; }
+.review-header h4 { margin: 0; font-size: 0.9rem; }
+.date { font-size: 0.7rem; opacity: 0.6; }
+
+.footer { background-color: #000; margin-top: 60px; }
+.footer-accent-bar { background-color: #7a0c0c; padding: 15px 0; }
+.barcode-box { width: fit-content; }
+.barcode-lines { font-family: monospace; font-size: 24px; letter-spacing: -2px; }
+.barcode-text { font-size: 12px; text-align: center; letter-spacing: 5px; }
+
+.footer-main { padding: 50px 0; }
+.footer-flex { display: flex; justify-content: space-between; align-items: flex-start; }
+.contacts h3 { font-size: 24px; margin-bottom: 20px; font-weight: 400; }
+.contacts p { color: #bbb; margin-bottom: 10px; display: flex; align-items: center; gap: 10px; }
+
+.social-links { display: flex; gap: 20px; }
+.social-links a { color: white; font-size: 35px; transition: 0.3s; }
+.social-links a:hover { color: #7a0c0c; }
+
+/* --- АДАПТИВ --- */
+@media (max-width: 768px) {
+    .header { height: 200px; }
+    .footer-flex { flex-direction: column; gap: 30px; }
+    .quest-grid, .reviews-grid { grid-template-columns: 1fr; }
+    .nav-content { flex-direction: column; gap: 15px; }
+    .search-box { max-width: 100%; width: 100%; }
+}

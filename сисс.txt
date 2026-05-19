@@ -1,0 +1,270 @@
+:root {
+    --bg-black: #0a0a0a;
+    --dark-grey: #262626;
+    --burgundy: #800c0c;
+    --burgundy-hover: #a01010;
+    --text-white: #e0e0e0;
+}
+
+body {
+    background-color: var(--bg-black);
+    color: var(--text-white);
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
+/* Header */
+.header {
+    background-color: #000;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    background-image: radial-gradient(circle at 50% 50%, transparent, #000), 
+                      url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200"><path d="M0 100 Q 50 0 100 100 T 200 100" fill="none" stroke="%23500" stroke-width="3"/></svg>');
+    background-repeat: repeat;
+}
+
+.logo-main {
+    font-family: 'Times New Roman', serif;
+    font-size: clamp(60px, 10vw, 100px);
+    letter-spacing: 15px;
+    font-weight: 300;
+    color: #ffffff;
+    text-transform: uppercase;
+    margin: 0;
+    z-index: 2;
+    position: relative;
+}
+
+/* Nav Bar */
+.nav-bar {
+    background-color: var(--dark-grey);
+    padding: 15px 0;
+    width: 100%;
+}
+
+.nav-content {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* Сбрасываем стандартный стиль ссылок для карточек */
+.quest-card {
+    text-decoration: none; /* Убираем подчеркивание */
+    color: inherit;        /* Оставляем цвет текста как у родителя */
+    display: flex;         /* Сохраняем структуру карточки */
+    flex-direction: column;
+    transition: transform 0.3s ease; /* Плавный эффект при наведении */
+}
+
+/* Эффект при наведении для интерактивности */
+.quest-card:hover {
+    transform: translateY(-5px); /* Карточка слегка приподнимается */
+    cursor: pointer;
+} 
+
+/* ОБНОВЛЕННЫЕ СТИЛИ ПОИСКА */
+.search-box {
+    flex-grow: 1;
+    position: relative;
+    max-width: 500px;
+}
+
+.search-box input {
+    width: 100%;
+    background: var(--burgundy);
+    border: none;
+    padding: 10px 45px 10px 15px; /* Отступ справа для иконки */
+    color: white;
+    border-radius: 4px; /* Как у кнопок */
+    outline: none;
+    font-family: inherit;
+    font-size: 14px;
+    transition: background 0.3s, box-shadow 0.3s;
+    box-sizing: border-box;
+}
+
+.search-box input:focus {
+    background: var(--burgundy-hover);
+    box-shadow: 0 0 8px rgba(160, 16, 16, 0.4);
+}
+
+.search-box input::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.search-icon {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: white;
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+.nav-btn {
+    background: var(--burgundy);
+    color: white;
+    border: none;
+    padding: 10px 25px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-weight: 400;
+    transition: background 0.3s;
+    white-space: nowrap;
+}
+
+.nav-btn:hover {
+    background: var(--burgundy-hover);
+}
+
+/* Quest Grid */
+.quest-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+    padding: 60px 0;
+}
+
+.quest-card {
+    background: var(--dark-grey);
+    border-radius: 4px;
+    overflow: hidden;
+    transition: transform 0.3s;
+}
+
+.quest-card:hover {
+    transform: translateY(-5px);
+}
+
+.quest-image {
+    background: var(--burgundy);
+    height: 250px;
+    position: relative;
+}
+
+.age-badge {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-weight: bold;
+}
+
+.quest-info {
+    padding: 15px;
+}
+
+.quest-info h3 { margin: 0 0 5px 0; font-size: 0.95rem; }
+.quest-info p { margin: 0; font-size: 0.75rem; color: #aaa; }
+.difficulty { margin-top: 5px; font-size: 0.8rem; letter-spacing: 1px; color: var(--burgundy); font-weight: bold; }
+
+/* Футер */
+.footer {
+    background-color: #000;
+    margin-top: 60px;
+}
+
+.footer-accent-bar {
+    background-color: #7a0c0c;
+    padding: 15px 0;
+}
+
+.barcode-box {
+    width: fit-content;
+}
+
+.barcode-lines {
+    font-family: monospace;
+    font-size: 24px;
+    letter-spacing: -2px;
+}
+
+.barcode-text {
+    font-size: 12px;
+    text-align: center;
+    letter-spacing: 5px;
+}
+
+.footer-main {
+    padding: 50px 0;
+}
+
+.footer-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.contacts h3 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    font-weight: 400;
+    color: #fff;
+}
+
+.contacts p {
+    color: #bbb;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.9rem;
+}
+
+.social-links {
+    display: flex;
+    gap: 20px;
+}
+
+.social-links a {
+    color: white;
+    font-size: 35px;
+    transition: 0.3s;
+    text-decoration: none;
+}
+
+.social-links a:hover {
+    color: #7a0c0c;
+}
+
+/* Адаптивность */
+@media (max-width: 900px) {
+    .quest-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .header {
+        height: 200px;
+    }
+    .footer-flex { 
+        flex-direction: column; 
+        gap: 30px; 
+    }
+}
+
+@media (max-width: 650px) {
+    .nav-content {
+        flex-direction: column;
+        gap: 15px;
+    }
+    .search-box { max-width: 100%; width: 100%; }
+    .quest-grid {
+        grid-template-columns: 1fr;
+    }
+}
